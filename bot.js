@@ -34,6 +34,8 @@ function respond() {
       postMessage("Joe Rogan has joined the chat.");
     } else if (checkAskingAboutMeeting(request.text)) {
       postMessage("SSA Meetings are Wednesdays 5:30-6:30pm in PAR 105");
+    } else if (checkBlackHole(request.text)) {
+      postMessage("I am glad to see you are a holes of color ally.");
     }
 
   } else {
@@ -41,6 +43,8 @@ function respond() {
     this.res.end();
   }
 }
+
+// OUR CHECKS
 
 function checkCussWords(text) {
   var cussCount = (text.toLowerCase().match(/fuck/g) || []).length;
@@ -75,8 +79,14 @@ function checkSamHarris(text) {
 
 function checkAskingAboutMeeting(text) {
   var meetingRegex = /[what\stime|when|where].+meeting/;
-  return meetingRegex.test(text);
+  return meetingRegex.test(text.toLowerCase());
 }
+
+function checkBlackHole(text) {
+  var regex = /black\shole/;
+  return regex.test(text.toLowerCase());
+}
+
 
 function mention(userId, name) {
   var nameLength = name.length;
@@ -101,6 +111,8 @@ function image(url) {
 
   return attachments;
 }
+
+
 
 function postMessage(responseText, request, imageUrl) {
   request = request || null;
