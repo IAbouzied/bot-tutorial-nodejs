@@ -229,7 +229,7 @@ function checkPodcast(text) {
   return regex.test(text.toLowerCase());
 }
 
-function checkNeedsRide(text) {
+function checkNeedsRide(text, request) {
 	var regex = /a\sride/;
 	var delay = 60 * 60 * 24;
 	if (lastAskedForRideTime + delay < request.created_at) {
