@@ -4,13 +4,14 @@ var HTTPS = require('https');
 
 var botID = process.env.BOT_ID;
 
-var imageUrls = {
+var urls = {
   benStillerImage: "https://i.groupme.com/199x212.jpeg.dc882ad81724453398237fb8cd23620d'",
   mango1: "https://i.groupme.com/512x512.jpeg.7ffb11da0be14ced9f060573e4e70927",
   mango2: "https://i.groupme.com/512x512.jpeg.85fff75b16244668aae4e36cbb7bb937",
   mango3: "https://i.groupme.com/512x512.jpeg.7f676d6217464734b6b9d85eaffc9ec6",
   mango4: "https://i.groupme.com/512x512.jpeg.8b109a8595744866a678f508600f0bc4",
-  mango5: "https://i.groupme.com/512x512.jpeg.9a38932f66884f79aadc2364f66a9013"
+  mango5: "https://i.groupme.com/512x512.jpeg.9a38932f66884f79aadc2364f66a9013",
+  podcast: "https://www.youtube.com/playlist?list=PLY6l98_nZ6T2WR7Jhb7q4adgkIVy1bM53"
 };
 
 var mangoStage = 1;
@@ -68,7 +69,7 @@ function myRespond(request) {
       } else if (request.text.toLowerCase() === "grow" && request.user_id == userIds.luisUserId) {
         growMangoTree(request);
       } else if (checkSamHarris(request.text)) {
-        postMessage("", request, imageUrls.benStillerImage);
+        postMessage("", request, urls.benStillerImage);
       } else if (doesJoeRoganJoinChat(request.text)) {
         postMessage("Joe Rogan has joined the chat.");
       } else if (checkAskingAboutMeeting(request.text)) {
@@ -79,6 +80,8 @@ function myRespond(request) {
         growDick();
       } else if (request.user_id == userIds.alexandersUserId) {
         crushAlexander(request);
+      } else if (checkPodcast(request.text)) {
+        postMessage("Speaking of podcasts this is one of my personal favorites: " + urls.podcast);
       }
     } else if (request.attachments.length > 0 && request.attachments[0].type == "image" && request.user_id == userIds.ejUserId) {
       postMessage("So cute <3 <3 <3")
@@ -93,9 +96,7 @@ function myRespond(request) {
 // OUR CHECKS
 
 function checkCussWords(text) {
-  var cussCount = (text.toLowerCase().match(/fuck/g) || []).length;
-  cussCount += (text.toLowerCase().match(/shit/g) || []).length;
-  cussCount += (text.toLowerCase().match(/bitch/g) || []).length;
+  var cussCount = (text.toLowerCase().match(/fuck|shit|bitch/g) || []).length;
 
   if (cussCount >= 3) {
     return true;
@@ -163,23 +164,23 @@ function growMangoTree(request) {
 
   switch (mangoStage) {
     case 1:
-      postMessage("A wild mango tree has appeared!", request, imageUrls.mango1);
+      postMessage("A wild mango tree has appeared!", request, urls.mango1);
       mangoStage++;
       break;
     case 2:
-      postMessage("The baby mango tree transforms himself into adolescence! Unfortunately, his peers still think he is a loser for he has no mangos yet.", request, imageUrls.mango2);
+      postMessage("The baby mango tree transforms himself into adolescence! Unfortunately, his peers still think he is a loser for he has no mangos yet.", request, urls.mango2);
       mangoStage++;
       break;
     case 3:
-      postMessage("Amazing! Despite being orphaned at birth, the mango tree continues to grow thanks to his new gentle caregiver.", request, imageUrls.mango3);
+      postMessage("Amazing! Despite being orphaned at birth, the mango tree continues to grow thanks to his new gentle caregiver.", request, urls.mango3);
       mangoStage++;
       break;
     case 4:
-      postMessage("Success!! Mangos start to grow! Sadly, not enough mangos to feed the nearby village, which is currently suffering under the cruel fist of fascism.", request, imageUrls.mango4);
+      postMessage("Success!! Mangos start to grow! Sadly, not enough mangos to feed the nearby village, which is currently suffering under the cruel fist of fascism.", request, urls.mango4);
       mangoStage++;
       break;
     case 5:
-      postMessage("You did it!! The mango tree grew enough mangos to feed the village. All of the mango tree's friends apologized and everyone is happy. All thanks to the one and only Luis!", request, imageUrls.mango5);
+      postMessage("You did it!! The mango tree grew enough mangos to feed the village. All of the mango tree's friends apologized and everyone is happy. All thanks to the one and only Luis!", request, urls.mango5);
       mangoStage = 1;
       break;
     default:
@@ -201,9 +202,13 @@ function checkBlackHole(text) {
 }
 
 function checkBotMention(text) {
-  var regex = /@cameron/;
-  var regex2 = /@cam/;
-  return regex.test(text.toLowerCase()) || regex2.test(text.toLowerCase());
+  var regex = /@cameron|@cam/;
+  return regex.test(text.toLowerCase());
+}
+
+function checkPodcast(text) {
+  var regex = /podcast/;
+  return regex.test(text.toLowerCase());
 }
 
 function botMentionResponse(text, request) {
