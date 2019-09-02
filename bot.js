@@ -22,32 +22,34 @@ function respond() {
       botRegex = /^\/cool guy$/;
 
   console.log(request);
-  if(request.text && botRegex.test(request.text)) {
-    this.res.writeHead(200);
-    postMessage("Suhh dude");
-    this.res.end();
-  } else if (request.text) {
-    if (checkCussWords(request.text)) {
-      postMessage("Excuse me!!1! This is a Christian minecraft server. Please keep satan language to a minimum. Thank you.");
-    } else if (checkLookAtThisDood(request.text)) {
-      postMessage("https://www.youtube.com/watch?v=ZXWI9oINBpA", request);
-    } else if (isLuisABitch(request.text) && request.user_id == userIds.luisUserId) {
-      postMessage("Luis stop being a lil bitch.");
-    } else if (request.text.toLowerCase() === "grow" && request.user_id == "24104270") {
-      growMangoTree();
-    } else if (checkSamHarris(request.text)) {
-      postMessage("", request, imageUrls.benStillerImage);
-    } else if (doesJoeRoganJoinChat(request.text)) {
-      postMessage("Joe Rogan has joined the chat.");
-    } else if (checkAskingAboutMeeting(request.text)) {
-      postMessage("SSA Meetings are Wednesdays 5:30-6:30pm in PAR 105");
-    } else if (checkBlackHole(request.text)) {
-      postMessage("I am glad to see you are a holes of color ally.");
-    }
+  if (request.sender_type != "bot") {
+    if(request.text && botRegex.test(request.text)) {
+      this.res.writeHead(200);
+      postMessage("Suhh dude");
+      this.res.end();
+    } else if (request.text) {
+      if (checkCussWords(request.text)) {
+        postMessage("Excuse me!!1! This is a Christian minecraft server. Please keep satan language to a minimum. Thank you.");
+      } else if (checkLookAtThisDood(request.text)) {
+        postMessage("https://www.youtube.com/watch?v=ZXWI9oINBpA", request);
+      } else if (isLuisABitch(request.text) && request.user_id == userIds.luisUserId) {
+        postMessage("Luis stop being a lil bitch.");
+      } else if (request.text.toLowerCase() === "grow" && request.user_id == userIds.luisUserId) {
+        growMangoTree();
+      } else if (checkSamHarris(request.text)) {
+        postMessage("", request, imageUrls.benStillerImage);
+      } else if (doesJoeRoganJoinChat(request.text)) {
+        postMessage("Joe Rogan has joined the chat.");
+      } else if (checkAskingAboutMeeting(request.text)) {
+        postMessage("SSA Meetings are Wednesdays 5:30-6:30pm in PAR 105");
+      } else if (checkBlackHole(request.text)) {
+        postMessage("I am glad to see you are a holes of color ally.");
+      }
 
-  } else {
-    this.res.writeHead(200);
-    this.res.end();
+    } else {
+      this.res.writeHead(200);
+      this.res.end();
+    }
   }
 }
 
