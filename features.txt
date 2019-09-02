@@ -1,0 +1,21 @@
+FEATURES:
+- responds to mentions with dumb response
+- responds to excessive cussing
+- looks at this dood if you insult the bot
+- if luis says "i hate", calls him a bitch
+- luis can grow mango tree
+- anyone but luis can grow dick
+- posts ben stiller if sam harris is mentioned
+- Joe Rogan joins the chat if dmt, cbd, or shrooms are mentioned
+- posts meeting place and time if someone asks
+- Corrects "black hole" with "hole of color"
+- occasionally roasts alexander
+- requests a ride
+- when podcast is mentioned, posts the abe and adam show
+- when bible is mentioned, posts random bible quote
+- bitches ain't loyal if someone leaves
+- cat fact
+- 1/75 messages get simple response
+- Greets new members
+- Calls EJ's pictures cute
+- Posts look at this dood meme if someone says dood

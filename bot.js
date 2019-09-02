@@ -21,7 +21,7 @@ var simpleResponses = [
 	"wow",
 	"nice",
 	"dope",
-	"that's lit",
+	"that's lit🔥",
 	"bruh",
 	"damn",
 	"ok"
@@ -236,7 +236,7 @@ function growDick(request) {
       break;
     case 5:
       postMessage("8=========D~~~~")
-      postMessage("Congratulations you made it ejaculate!!!", request)
+      postMessage("Congratulations you made it ejaculate!!!😩🍆💦", request)
       dickStage = 1;
       break;
     default:
@@ -364,9 +364,9 @@ function botMentionResponse(text, request) {
   var insultRegex = /fuck\syou|go\sto\shell|i\shate\syou|you\ssuck|suck\smy\sdick|die|dumb|stupid|annoying|leave|stop|shut\sup|be\squiet|fuck\soff/;
   var delay = 7 * 60;
   if (sexualWordsRegex.test(text.toLowerCase())) {
-    postMessage("Umm I don't talk to perverts", request);
+    postMessage("Umm I don't talk to perverts😐", request);
   } else if (insultRegex.test(text.toLowerCase()) && request.avatar_url != null) {
-    postMessage("bruh... look at this dood", request, request.avatar_url);
+    postMessage("bruh... look at this dood😂💀", request, request.avatar_url);
   } else if (request.created_at > timers.lastMentionResponseTime + delay) {
     timers.lastMentionResponseTime = request.created_at;
     postMessage(mentionResponses[Math.floor(Math.random() * mentionResponses.length)], request);
@@ -380,7 +380,7 @@ function crushAlexander(request) {
   var shouldMessage = Math.floor(Math.random() * 5) == 0;
   if (timers.lastMessagedAlexanderTime + delay < request.created_at) {
     if (messagedAlexander === false && shouldMessage) {
-      postMessage("Why do you think that?", request);
+      postMessage("Why do you think that?🤔", request);
       messagedAlexander = true;
     } else if (messagedAlexander) {
       postMessage("Actually sorry nevermind I don't give a shit", request);
