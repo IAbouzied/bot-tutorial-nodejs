@@ -21,7 +21,7 @@ var simpleResponses = [
 	"wow",
 	"nice",
 	"dope",
-	"that's lit",
+	"that's lit🔥",
 	"bruh",
 	"damn",
 	"ok"
@@ -69,6 +69,18 @@ var randomBibleVerses = [
   '"Master, Moses wrote unto us, If a man&#39;s brother die, and leave his wife behind him, and leave no children, that his brother should take his wife, and raise up seed unto his brother." (Mark 12:19)',
   '"...thou shalt not approach unto a woman to uncover her nakedness, as long as she is put apart for her uncleanness." (Leviticus 18:19)',
 ];
+
+var greetings = [
+  "Hey welcome to the org! So glad you joined! 😄",
+  "Hi I am Cameron I can't wait to meet you! 😄",
+  "Yaay a new friend! Can't wait to meet you! 😊"
+]
+
+var eventReactions = [
+  "I'm so excited!",
+  "Its gonna be LIT! 🔥",
+  "Lets fuckin goooooooo!"
+]
 
 
 function respond() {
@@ -119,8 +131,14 @@ function myRespond(request) {
         postMessage("Speaking of podcasts this is one of my personal favorites: " + urls.podcast);
       } else if (checkBible(request)) {
         postMessage("Speaking of the Bible, this verse really spoke to me the other day: " + randomBibleVerses[Math.floor(Math.random() * randomBibleVerses.length)], request);
+      } else if (checkJoinedGroup(request)) {
+        postMessage(greetings[Math.floor(Math.random() * greetings.length)]);
+      } else if (checkRejoinedGroup(request)) {
+        postMessage("Yay this chat is cool again!");
       } else if (checkLeftGroup(request)) {
         postMessage("These bitches ain't loyal");
+      } else if (checkEventStarting(request)) {
+        postMessage(eventReactions[Math.floor(Math.random() * eventReactions.length)]);
       } else if (checkCatMention(request.text)) {
         getCatFact();
       } else {
@@ -218,7 +236,7 @@ function growDick(request) {
       break;
     case 5:
       postMessage("8=========D~~~~")
-      postMessage("Congratulations you made it ejaculate!!!", request)
+      postMessage("Congratulations you made it ejaculate!!!😩🍆💦", request)
       dickStage = 1;
       break;
     default:
@@ -321,8 +339,23 @@ function getCatFact() {
       .catch(function(err) { console.log(err)});
 }
 
-  function checkLeftGroup(request) {
+function checkLeftGroup(request) {
     var regex = /has\sleft\sthe\sgroup/;
+    return (request.sender_type == "system") && regex.test(request.text.toLowerCase());
+}
+
+function checkJoinedGroup(request) {
+    var regex = /(added\s.+to\sthe\sgroup)|(has\sjoined\sthe\sgroup)/;
+    return (request.sender_type == "system") && regex.test(request.text.toLowerCase());
+}
+
+function checkRejoinedGroup(request) {
+    var regex = /has\srejoined\sthe\sgroup/;
+    return (request.sender_type == "system") && regex.test(request.text.toLowerCase());
+}
+
+function checkEventStarting(request) {
+    var regex = /is\sstarting\sin\s/;
     return (request.sender_type == "system") && regex.test(request.text.toLowerCase());
 }
 
@@ -331,9 +364,9 @@ function botMentionResponse(text, request) {
   var insultRegex = /fuck\syou|go\sto\shell|i\shate\syou|you\ssuck|suck\smy\sdick|die|dumb|stupid|annoying|leave|stop|shut\sup|be\squiet|fuck\soff/;
   var delay = 7 * 60;
   if (sexualWordsRegex.test(text.toLowerCase())) {
-    postMessage("Umm I don't talk to perverts", request);
+    postMessage("Umm I don't talk to perverts😐", request);
   } else if (insultRegex.test(text.toLowerCase()) && request.avatar_url != null) {
-    postMessage("bruh... look at this dood", request, request.avatar_url);
+    postMessage("bruh... look at this dood😂💀", request, request.avatar_url);
   } else if (request.created_at > timers.lastMentionResponseTime + delay) {
     timers.lastMentionResponseTime = request.created_at;
     postMessage(mentionResponses[Math.floor(Math.random() * mentionResponses.length)], request);
@@ -347,7 +380,7 @@ function crushAlexander(request) {
   var shouldMessage = Math.floor(Math.random() * 5) == 0;
   if (timers.lastMessagedAlexanderTime + delay < request.created_at) {
     if (messagedAlexander === false && shouldMessage) {
-      postMessage("Why do you think that?", request);
+      postMessage("Why do you think that?🤔", request);
       messagedAlexander = true;
     } else if (messagedAlexander) {
       postMessage("Actually sorry nevermind I don't give a shit", request);
