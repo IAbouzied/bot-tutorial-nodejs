@@ -11,11 +11,24 @@ function respond() {
     this.res.writeHead(200);
     postMessage(request);
     this.res.end();
+  } else if (request.text) {
+    checkCussWords(request.text)
   } else {
     console.log("don't care");
     this.res.writeHead(200);
     this.res.end();
   }
+}
+
+function checkCussWords(text) {
+  var cussCount = (text.toLowerCase().match(/fuck/g) || []).length;
+  cussCount += (text.toLowerCase().match(/shit/g) || []).length;
+  cussCount += (text.toLowerCase().match(/bitch/g) || []).length;
+
+  if (cussCount >= 3) {
+    
+  }
+
 }
 
 function mention(userId, name) {
