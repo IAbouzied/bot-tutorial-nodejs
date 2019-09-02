@@ -62,12 +62,12 @@ var mentionResponses = [
 ];
 
 var randomBibleVerses = [
-  '“Slaves, submit yourselves to your masters with all respect, not only to the good and gentle but also to the cruel.” (1 Peter 2:18)',
-  '“Wives, submit to your husbands as to the Lord.” (Ephesians 5:22)',
-  '“This is what the Lord Almighty says... ‘Now go and strike Amalek and devote to destruction all that they have. Do not spare them, but kill both man and woman, child and infant, ox and sheep, camel and donkey.’” (1 Samuel 15:3)',
-  '“I do not permit a woman to teach or to have authority over a man; she must be silent.” (1 Timothy 2:12)',
-  '"Master, Moses wrote unto us, If a man&#39;s brother die, and leave his wife behind him, and leave no children, that his brother should take his wife, and raise up seed unto his brother." (Mark 12:19)',
-  '"...thou shalt not approach unto a woman to uncover her nakedness, as long as she is put apart for her uncleanness." (Leviticus 18:19)',
+  '“Slaves, submit yourselves to your masters with all respect 💯, not only to the good and gentle 😇 but also to the cruel 👿.” (1 Peter 2:18)',
+  '“Wives, submit to your husbands 🏈 as to the Lord 🙌.” (Ephesians 5:22)',
+  '“This is what the Lord 🎅 Almighty says... ‘Now go and strike 👊 Amalek and devote to destruction all that they have. Do not 🚫 spare them 🚫, but kill both man 👨‍🔧 and woman 🙍‍♀️, child 🧒 and infant 👶, ox 🐂 and sheep 🐑, camel 🐪 and donkey 🐴.’” (1 Samuel 15:3)',
+  '“I do not permit a woman to teach 👩‍🏫 or to have authority over a man 💪; she must be silent 🤫.” (1 Timothy 2:12)',
+  '"Master, Moses wrote 📝 unto us, If a man&#39;s brother die 💀, and leave his wife behind him 😜, and leave no children 😏, that his brother should take his wife 🤪, and raise up seed 🌱 unto his brother." (Mark 12:19)',
+  '"...thou shalt not approach unto a woman to uncover her nakedness 🍑, as long as she is put apart for her uncleanness 🍷." (Leviticus 18:19)',
 ];
 
 var greetings = [
