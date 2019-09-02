@@ -8,6 +8,10 @@ var imageUrls = {
   benStillerImage: "https://i.groupme.com/199x212.jpeg.dc882ad81724453398237fb8cd23620d'",
 };
 
+var userIds = {
+  luisUserId: "24104270"
+};
+
 function respond() {
   var request = JSON.parse(this.req.chunks[0]),
       botRegex = /^\/cool guy$/;
@@ -22,12 +26,14 @@ function respond() {
       postMessage("Excuse me!!1! This is a Christian minecraft server. Please keep satan language to a minimum. Thank you.");
     } else if (checkLookAtThisDood(request.text)) {
       postMessage("https://www.youtube.com/watch?v=ZXWI9oINBpA", request);
-    } else if (isLuisABitch(request.text) && request.user_id == "24104270") {
+    } else if (isLuisABitch(request.text) && request.user_id == userIds.luisUserId) {
       postMessage("Luis stop being a lil bitch.");
     } else if (checkSamHarris(request.text)) {
       postMessage("", request, imageUrls.benStillerImage);
     } else if (doesJoeRoganJoinChat(request.text)) {
       postMessage("Joe Rogan has joined the chat.");
+    } else if (checkAskingAboutMeeting(request.text)) {
+      postMessage("SSA Meetings are Wednesdays 5:30-6:30pm in PAR 105");
     }
 
   } else {
@@ -65,6 +71,11 @@ function checkLookAtThisDood(text) {
 
 function checkSamHarris(text) {
   return text.toLowerCase().indexOf("sam harris") > -1;
+}
+
+function checkAskingAboutMeeting(text) {
+  var meetingRegex = /[what\stime|when|where].+meeting/;
+  return meetingRegex.test(text);
 }
 
 function mention(userId, name) {
