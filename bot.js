@@ -89,10 +89,10 @@ function myRespond(request) {
       } else if (request.user_id == userIds.alexandersUserId) {
         crushAlexander(request);
       } else if (checkBible(request.text)) {
-        postMessage("Speaking of the Bible, this verse really spoke to me the other day: " + randomBibleVerses[Math.floor(Math.random() * randomBibleVerses.length)], request);
+        postMessage("Speaking of the Bible, this verse really spoke to me the other day: " + randomBibleVerses[Math.floor(Math.random() * randomBibleVerses.length)]);
       }
     } else if (request.attachments.length > 0 && request.attachments[0].type == "image" && request.user_id == userIds.ejUserId) {
-      postMessage("So cute <3 <3 <3")
+      postMessage("So cute <3 <3 <3");
     }
     else {
       this.res.writeHead(200);
