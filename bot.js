@@ -222,11 +222,11 @@ function crushAlexander(request) {
   if (lastMessagedAlexanderTime + delay < request.created_at) {
     if (messagedAlexander === false && shouldMessage) {
       postMessage("Why do you think that?", request);
-      lastMessagedAlexanderTime = request.created_at;
       messagedAlexander = true;
     } else if (messagedAlexander) {
       postMessage("Actually sorry nevermind I don't give a shit", request);
       messagedAlexander = false;
+      lastMessagedAlexanderTime = request.created_at;
     }
   }
 }
