@@ -45,7 +45,7 @@ function postMessage(request) {
   };
 
   body = {
-    "attachments" : mention(request.user_id, request.name),
+    "attachments" : [mention(request.user_id, request.name)],
     "bot_id" : botID,
     "text" : botResponse
   };
