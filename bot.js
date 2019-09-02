@@ -314,10 +314,11 @@ function checkCatMention(text) {
 }
 
 function getCatFact() {
-  axios.get("https://cat-fact.herokuapp.com/facts").then(res => {
+  axios.get("https://cat-fact.herokuapp.com/facts")
+      .then(function(res) {
         return postMessage("Dude, did you know that " + res.data.all[Math.floor(Math.random() * res.data.all.length)].text);
       })
-      .catch(err => console.log(err));
+      .catch(function(err) { console.log(err)});
 }
 
   function checkLeftGroup(request) {
