@@ -13,6 +13,8 @@ var imageUrls = {
   mango5: "https://i.groupme.com/512x512.jpeg.9a38932f66884f79aadc2364f66a9013"
 };
 
+var stage = 1;
+
 var userIds = {
   luisUserId: "24104270"
 };
@@ -34,7 +36,7 @@ function respond() {
     } else if (isLuisABitch(request.text) && request.user_id == userIds.luisUserId) {
       postMessage("Luis stop being a lil bitch.");
     } else if (request.text.toLowerCase() === "grow" && request.user_id == "24104270") {
-      growMangoTree();
+      growMangoTree(request);
     } else if (checkSamHarris(request.text)) {
       postMessage("", request, imageUrls.benStillerImage);
     } else if (doesJoeRoganJoinChat(request.text)) {
@@ -84,8 +86,7 @@ function checkSamHarris(text) {
   return text.toLowerCase().indexOf("sam harris") > -1;
 }
 
-function growMangoTree() {
-  var stage = 1;
+function growMangoTree(request) {
 
   switch (stage) {
     case 1:
