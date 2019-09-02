@@ -38,12 +38,12 @@ var mentionResponses = [
 
 
 function respond() {
-	setTimeout(myRespond, 5000)
+  var request = JSON.parse(this.req.chunks[0]);
+	setTimeout(myRespond, 5000, request);
 }
 
-function myRespond() {
-  var request = JSON.parse(this.req.chunks[0]),
-      botRegex = /^\/cool guy$/;
+function myRespond(request) {
+  var botRegex = /^\/cool guy$/;
 
   console.log(request);
   for (var i=0; i < request.attachments.length; i++) {
