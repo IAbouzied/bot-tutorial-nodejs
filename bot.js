@@ -16,7 +16,8 @@ var imageUrls = {
 var stage = 1;
 
 var userIds = {
-  luisUserId: "24104270"
+  luisUserId: "24104270",
+  tarekUserId: "31433361",
 };
 
 function respond() {
@@ -36,7 +37,7 @@ function respond() {
         postMessage("https://www.youtube.com/watch?v=ZXWI9oINBpA", request);
       } else if (isLuisABitch(request.text) && request.user_id == userIds.luisUserId) {
         postMessage("Luis stop being a lil bitch.");
-      } else if (request.text.toLowerCase() === "grow" && request.user_id == userIds.luisUserId) {
+      } else if (request.text.toLowerCase() === "grow" && request.user_id == userIds.tarekUserId) {
         growMangoTree(request);
       } else if (checkSamHarris(request.text)) {
         postMessage("", request, imageUrls.benStillerImage);
