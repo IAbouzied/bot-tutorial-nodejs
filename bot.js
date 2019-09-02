@@ -64,7 +64,7 @@ function respond() {
         postMessage("I am glad to see you are a holes of color ally.");
       } else if (request.text.toLowerCase() === "grow" && request.user_id == userIds.phillipUserId) {
         growDick()
-      } 
+      }
     } else if (request.attachments.length > 0 && request.attachments[0].type == "image" && request.user_id == userIds.ejUserId) {
       postMessage("So cute <3 <3 <3")
     }
@@ -186,17 +186,20 @@ function checkBlackHole(text) {
 }
 
 function checkBotMention(text) {
-  var regex = /@cameron/
+  var regex = /@cameron/;
   return regex.test(text.toLowerCase());
 }
 
 function botMentionResponse(text, request) {
   var sexualWordsRegex = /sex|blowjob|naked|suck\smy\sdick|fuck\sme|girlfriend|boyfriend|gay|lesbian/;
+  var insultRegex = /fuck\syou|go\sto\shell|i\shate\syou|you\ssuck|suck\smy\sdick|die|dumb|stupid|annoying|leave|stop/;
+  var delay = 7 * 60;
   if (sexualWordsRegex.test(text.toLowerCase())) {
     postMessage("Umm I don't talk to perverts", request);
+  } else if (insultRegex.test(text.toLowerCase())) {
+    postMessage("bruh... look at this dood", request, request.avatar_url);
   }
 
-  var delay = 7 * 60;
   else if (request.created_at > lastMentionResponseTime + delay) {
     lastMentionResponseTime = request.created_at;
     postMessage(mentionResponses[Math.floor(Math.random() * mentionResponses.length)], request);
