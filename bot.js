@@ -108,6 +108,8 @@ function myRespond(request) {
         postMessage("Speaking of podcasts this is one of my personal favorites: " + urls.podcast);
       } else if (checkBible(request.text)) {
         postMessage("Speaking of the Bible, this verse really spoke to me the other day: " + randomBibleVerses[Math.floor(Math.random() * randomBibleVerses.length)], request);
+      } else if (checkLeftGroup(request)) {
+        postMessage("These bitches ain't loyal");
       } else {
       	// 1/75 chance
       	simpleResponse()
@@ -258,6 +260,11 @@ function checkNeedsRide(text, request) {
 		return regex.test(text.toLowerCase());
 	}
 	return false;
+}
+
+function checkLeftGroup(request) {
+  var regex = /has\sleft\sthe\sgroup/;
+  return (request.sender_type == "system") && regex.test(request.text.toLowerCase()); 
 }
 
 function botMentionResponse(text, request) {
