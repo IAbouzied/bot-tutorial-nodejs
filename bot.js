@@ -108,8 +108,8 @@ function myRespond(request) {
         postMessage("SSA Meetings are Wednesdays 5:30-6:30pm in PAR 105");
       } else if (checkBlackHole(request.text)) {
         postMessage("I am glad to see you are a holes of color ally.");
-      } else if (request.text.toLowerCase() === "grow" && request.user_id == userIds.phillipUserId) {
-        growDick();
+      } else if (request.text.toLowerCase() === "grow") {
+        growDick(request);
       } else if (request.user_id == userIds.alexandersUserId) {
         crushAlexander(request);
       } else if (checkNeedsRide(request.text, request)) {
@@ -137,7 +137,7 @@ function myRespond(request) {
 // OUR CHECKS
 
 function simpleResponse() {
-	if (Math.floor(Math.random() * 25) == 0) {
+	if (Math.floor(Math.random() * 75) == 0) {
 		postMessage(simpleResponses[Math.floor(Math.random()*simpleResponses.length)])
 	}
 }
@@ -179,7 +179,7 @@ function checkSamHarris(text) {
   return text.toLowerCase().indexOf("sam harris") > -1;
 }
 
-function growDick() {
+function growDick(request) {
   switch(dickStage) {
     case 1:
       postMessage("8=D");
@@ -199,6 +199,7 @@ function growDick() {
       break;
     case 5:
       postMessage("8=====D~~~")
+      postMessage("Congratulations you made it ejactulate!!!", request)
       dickStage = 1;
       break;
     default:
