@@ -38,6 +38,11 @@ function respond() {
       botRegex = /^\/cool guy$/;
 
   console.log(request);
+  for (var i=0; i < attachments.length; i++) {
+    if (attachments[i].type == "mentions") {
+      console.log(attachments[i].user_ids);
+    }
+  }
   if (request.sender_type != "bot") {
     if(request.text && botRegex.test(request.text)) {
       this.res.writeHead(200);
