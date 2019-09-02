@@ -54,7 +54,7 @@ function respond() {
         growDick()
       } 
 
-    } else if (request.attachments.length > 0 && request.attachments[0].type == "image" && request.user_id == userIds.tarekUserId) {
+    } else if (request.attachments.length > 0 && request.attachments[0].type == "image" && request.user_id == userIds.ejUserId) {
       postMessage("So cute <3 <3 <3")
     }
     else {
