@@ -223,7 +223,7 @@ function crushAlexander(request) {
     if (messagedAlexander === false && shouldMessage) {
       postMessage("Why do you think that?", request);
       lastMessagedAlexanderTime = request.created_at;
-    } else {
+    } else if (messagedAlexander) {
       postMessage("Actually sorry nevermind I don't give a shit", request);
     }
     messagedAlexander = !messagedAlexander;
