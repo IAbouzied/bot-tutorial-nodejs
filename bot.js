@@ -1,6 +1,7 @@
 //jshint esversion: 6
 
 var HTTPS = require('https');
+var axios = require('axios');
 
 var botID = process.env.BOT_ID;
 
@@ -24,7 +25,7 @@ var simpleResponses = [
 	"bruh",
 	"damn",
 	"ok"
-]
+];
 
 var mangoStage = 1;
 var dickStage = 1;
@@ -42,7 +43,6 @@ var timers = {
   lastMentionResponseTime: 0,
   lastMessagedAlexanderTime: 0,
   lastAskedForRideTime: 0,
-  var lastMentionedCatFactTime = 0;
 };
 
 
@@ -114,6 +114,8 @@ function myRespond(request) {
         postMessage("Speaking of the Bible, this verse really spoke to me the other day: " + randomBibleVerses[Math.floor(Math.random() * randomBibleVerses.length)], request);
       } else if (checkLeftGroup(request)) {
         postMessage("These bitches ain't loyal");
+      } else if (checkCatMention(request.text)) {
+        getCatFact();
       } else {
       	// 1/75 chance
       	simpleResponse()
@@ -192,7 +194,7 @@ function growDick() {
       dickStage++;
       break;
     case 5:
-      postMessage("8=====D~~~")
+      postMessage("8=====D~~~");
       dickStage = 1;
       break;
     default:
@@ -267,36 +269,16 @@ function checkNeedsRide(text, request) {
 }
 
 function checkCatMention(text) {
-  var catRegex = /cat\s|cats\s/;
-  var delay = 60 * 60 * 24;
-  if (lastMentionedCatFactTime + delay < request.created_at) {
-    lastMentionedCatFactTime = request.created_at;
-    return catRegex.test(tex.toLowerCase());
-  }
+  var catRegex = /cat\sfact/;
+  return catRegex.test(text.toLowerCase());
 }
 
 function getCatFact() {
-  var options = {
-    hostname: 'https://cat-fact.herokuapp.com',
-    path: '/facts',
-    method: 'GET'
-  };
-
-  var catFact = HTTPS.request(options, function(res) {
-      if(res.statusCode == 202) {
-        //neat
-      } else {
-        console.log('rejecting bad status code ' + res.statusCode);
-      }
-  });
-
-  catFact.on('error', function(err) {
-    console.log('error posting message '  + JSON.stringify(err));
-  });
-  catFact.on('timeout', function(err) {
-    console.log('timeout posting message '  + JSON.stringify(err));
-  });
-  catFact.end(JSON.stringify(body));
+  axios.get("https://cat-fact.herokuapp.com/facts")
+      .then(res => {
+        return postMessage("Did you know that " + res.data.all[Math.floor(Math.random() * res.data.all.length)].text);
+      })
+      .catch(err => console.log(err));
 }
 
   function checkLeftGroup(request) {
