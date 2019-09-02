@@ -101,7 +101,7 @@ function myRespond(request) {
       } else if (request.text.toLowerCase() === "grow" && request.user_id == userIds.luisUserId) {
         growMangoTree(request);
       } else if (checkSamHarris(request)) {
-        postMessage("The face wisdom", request, urls.benStillerImage);
+        postMessage("The face of wisdom", request, urls.benStillerImage);
       } else if (doesJoeRoganJoinChat(request)) {
         postMessage("Joe Rogan has joined the chat.");
       } else if (checkAskingAboutMeeting(request.text)) {
