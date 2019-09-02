@@ -70,6 +70,18 @@ var randomBibleVerses = [
   '"...thou shalt not approach unto a woman to uncover her nakedness, as long as she is put apart for her uncleanness." (Leviticus 18:19)',
 ];
 
+var greetings = [
+  "Hey welcome to the org! So glad you joined! 😄",
+  "Hi I am Cameron I can't wait to meet you! 😄",
+  "Yaay a new friend! Can't wait to meet you! 😊"
+]
+
+var eventReactions = [
+  "I'm so excited!",
+  "Its gonna be LIT! 🔥",
+  "Lets fuckin goooooooo!"
+]
+
 
 function respond() {
   var request = JSON.parse(this.req.chunks[0]);
@@ -119,8 +131,14 @@ function myRespond(request) {
         postMessage("Speaking of podcasts this is one of my personal favorites: " + urls.podcast);
       } else if (checkBible(request)) {
         postMessage("Speaking of the Bible, this verse really spoke to me the other day: " + randomBibleVerses[Math.floor(Math.random() * randomBibleVerses.length)], request);
+      } else if (checkJoinedGroup(request)) {
+        postMessage(greetings[Math.floor(Math.random() * greetings.length)]);
+      } else if (checkRejoinedGroup(request)) {
+        postMessage("Yay this chat is cool again!");
       } else if (checkLeftGroup(request)) {
         postMessage("These bitches ain't loyal");
+      } else if (checkEventStarting(request)) {
+        postMessage(eventReactions[Math.floor(Math.random() * eventReactions.length)]);
       } else if (checkCatMention(request.text)) {
         getCatFact();
       } else {
@@ -321,8 +339,23 @@ function getCatFact() {
       .catch(function(err) { console.log(err)});
 }
 
-  function checkLeftGroup(request) {
+function checkLeftGroup(request) {
     var regex = /has\sleft\sthe\sgroup/;
+    return (request.sender_type == "system") && regex.test(request.text.toLowerCase());
+}
+
+function checkJoinedGroup(request) {
+    var regex = /(added\s.+to\sthe\sgroup)|(has\sjoined\sthe\sgroup)/;
+    return (request.sender_type == "system") && regex.test(request.text.toLowerCase());
+}
+
+function checkRejoinedGroup(request) {
+    var regex = /has\srejoined\sthe\sgroup/;
+    return (request.sender_type == "system") && regex.test(request.text.toLowerCase());
+}
+
+function checkEventStarting(request) {
+    var regex = /is\sstarting\sin\s/;
     return (request.sender_type == "system") && regex.test(request.text.toLowerCase());
 }
 
