@@ -55,7 +55,7 @@ var timers = {
 
 var mentionResponses = [
   "I have an exam coming up so I can't really talk right now :(",
-  "Lets talk next meeting",
+  "Lets talk next meeting 👍",
   "I'm willing to talk about this but I don't like groupme shoot me a text",
   "Phones about to die I'll follow up later",
   "Driving rn",
@@ -106,7 +106,7 @@ function myRespond(request) {
       if (checkBotMention(request.text)) {
         setTimeout(botMentionResponse, 4 *1000, request.text, request);
       } else if (checkCussWords(request)) {
-        postMessage("Excuse me!!1! This is a Christian minecraft server. Please keep satan language to a minimum. Thank you.");
+        postMessage("Excuse me!!1! This is a Christian minecraft server 🙏😤. Please keep satan language to a minimum 👿🚫. Thank you.");
       } else if (checkLookAtThisDood(request)) {
         postMessage("https://www.youtube.com/watch?v=ZXWI9oINBpA", request);
       } else if (isLuisABitch(request.text) && request.user_id == userIds.luisUserId) {
