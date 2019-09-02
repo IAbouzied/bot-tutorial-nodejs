@@ -39,7 +39,7 @@ var mentionResponses = [
 
 function respond() {
   var request = JSON.parse(this.req.chunks[0]);
-	setTimeout(myRespond, 5000, request);
+	setTimeout(myRespond, 500, request);
 }
 
 function myRespond(request) {
