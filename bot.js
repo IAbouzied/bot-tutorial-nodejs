@@ -19,7 +19,8 @@ var dickStage = 1;
 var userIds = {
   luisUserId: "24104270",
   tarekUserId: "31433361",
-  phillipUserId: "48552024"
+  phillipUserId: "48552024",
+  ejUserId: "26034029"
 };
 
 function respond() {
@@ -51,6 +52,8 @@ function respond() {
         postMessage("I am glad to see you are a holes of color ally.");
       } else if (request.text.toLowerCase() === "grow" && request.user_id == userIds.phillipUserId) {
         growDick()
+      } else if (request.attachments.length > 0 && request.attachments[0].type == "image" && request.user_id == userIds.tarekUserId) {
+        postMessage("So cute <3 <3 <3")
       }
 
     } else {
@@ -72,6 +75,14 @@ function checkCussWords(text) {
   }
   return false;
 }
+
+// function poll(title, itemList) {
+//   if ()
+//   postMessage("*** NEW POLL ***\n" + title)
+//   for(var i = 0; i < itemList.length; i++)  {
+//     postMessage("Like this message to vote for " + itemList[i].toUpperCase());
+//   }
+// }
 
 function doesJoeRoganJoinChat(text) {
   var txt = text.toLowerCase();
