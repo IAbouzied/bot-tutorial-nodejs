@@ -94,8 +94,6 @@ function myRespond(request) {
       	postMessage("Can I get a ride too?")
       } else if (checkPodcast(request.text)) {
         postMessage("Speaking of podcasts this is one of my personal favorites: " + urls.podcast);
-      } else if (checkPodcast(request.text)) {
-        postMessage("Speaking of podcasts this is one of my personal favorites: " + urls.podcast);
       } else if (checkBible(request.text)) {
         postMessage("Speaking of the Bible, this verse really spoke to me the other day: " + randomBibleVerses[Math.floor(Math.random() * randomBibleVerses.length)]);
       }
@@ -235,7 +233,7 @@ function checkNeedsRide(text) {
 	var regex = /a\sride/;
 	var delay = 60 * 60 * 24;
 	if (lastAskedForRideTime + delay < request.created_at) {
-		lastMessagedAlexanderTime = request.created_at;
+		lastAskedForRideTime = request.created_at;
 		return regex.test(text.toLowerCase());
 	}
 	return false;
