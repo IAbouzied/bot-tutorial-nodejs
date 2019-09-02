@@ -12,7 +12,10 @@ function respond() {
     postMessage("Suhh dude");
     this.res.end();
   } else if (request.text) {
-    checkCussWords(request.text)
+    if (checkCussWords(request.text)) {
+      postMessage("Excuse me!!1! This is a Christian minecraft server. Please keep satan language to a minimum. Thank you.")
+    }
+    
   } else {
     this.res.writeHead(200);
     this.res.end();
@@ -25,9 +28,9 @@ function checkCussWords(text) {
   cussCount += (text.toLowerCase().match(/bitch/g) || []).length;
 
   if (cussCount >= 3) {
-    
+    return true
   }
-
+  return false
 }
 
 function mention(userId, name) {
