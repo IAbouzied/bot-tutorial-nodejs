@@ -17,6 +17,7 @@ FEATURES:
 - cat fact
 - 1/75 messages get simple response
 - Greets new members
+- Acknowledges people rejoining chats
 - Calls EJ's pictures cute
 - Posts look at this dood meme if someone says dood
 - Respond enthusiastically to new events
