@@ -27,6 +27,7 @@ var userIds = {
 
 var lastMentionResponseTime = 0;
 var lastMessagedAlexanderTime = 0;
+var lastAskedForRideTime = 0;
 
 var mentionResponses = [
   "I have an exam coming up so I can't really talk right now :(",
@@ -79,6 +80,8 @@ function myRespond(request) {
         growDick();
       } else if (request.user_id == userIds.alexandersUserId) {
         crushAlexander(request);
+      } else if (checkNeedsRide(request.text)) {
+      	postMessage("Can I get a ride too?")
       }
     } else if (request.attachments.length > 0 && request.attachments[0].type == "image" && request.user_id == userIds.ejUserId) {
       postMessage("So cute <3 <3 <3")
@@ -204,6 +207,16 @@ function checkBotMention(text) {
   var regex = /@cameron/;
   var regex2 = /@cam/;
   return regex.test(text.toLowerCase()) || regex2.test(text.toLowerCase());
+}
+
+function checkNeedsRide(text) {
+	var regex = /a\sride/;
+	var delay = 60 * 60 * 24;
+	if (lastAskedForRideTime + delay < request.created_at) {
+		lastMessagedAlexanderTime = request.created_at;
+		return regex.test(text.toLowerCase());
+	}
+	return false;
 }
 
 function botMentionResponse(text, request) {
