@@ -356,7 +356,7 @@ function checkRejoinedGroup(request) {
 
 function checkEventStarting(request) {
     var regex = /is\sstarting\sin\s/;
-    return (request.sender_type == "system") && regex.test(request.text.toLowerCase());
+    return (request.sender_id == "calendar") && regex.test(request.text.toLowerCase());
 }
 
 function botMentionResponse(text, request) {
