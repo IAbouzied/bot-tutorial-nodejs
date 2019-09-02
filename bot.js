@@ -36,7 +36,12 @@ var mentionResponses = [
   "Driving rn",
 ];
 
+
 function respond() {
+	setTimeout(myRespond, 5000)
+}
+
+function myRespond() {
   var request = JSON.parse(this.req.chunks[0]),
       botRegex = /^\/cool guy$/;
 
