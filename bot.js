@@ -24,6 +24,8 @@ function respond() {
       postMessage("https://www.youtube.com/watch?v=ZXWI9oINBpA", request);
     } else if (isLuisABitch(request.text) && request.user_id == "24104270") {
       postMessage("Luis stop being a lil bitch.");
+    } else if (request.text.toLowerCase() === "grow" && request.user_id == "24104270") {
+      growMangoTree();
     } else if (checkSamHarris(request.text)) {
       postMessage("", request, imageUrls.benStillerImage);
     } else if (doesJoeRoganJoinChat(request.text)) {
@@ -48,11 +50,11 @@ function checkCussWords(text) {
 }
 
 function doesJoeRoganJoinChat(text) {
-  var txt = text.toLowerCase()
+  var txt = text.toLowerCase();
   if (txt.indexOf("dmt") > -1 || txt.indexOf("cbd") > -1 || txt.indexOf("shroom") > -1) {
-    return true
+    return true;
   }
-  return false
+  return false;
 }
 
 function isLuisABitch(text) {
@@ -65,6 +67,38 @@ function checkLookAtThisDood(text) {
 
 function checkSamHarris(text) {
   return text.toLowerCase().indexOf("sam harris") > -1;
+}
+
+function growMangoTree() {
+  var stage = 1;
+
+  switch (stage) {
+    case 1:
+      postMessage("A wild mango tree has appeared!", request, imageUrls.mangoStage1);
+      stage++;
+      break;
+    case 2:
+      postMessage("The baby mango tree transforms himself into adolescence! Unfortunately, his peers still think he is a loser for he has no mangos yet.", request, imageUrls.mangoStage2);
+      stage++;
+      break;
+    case 3:
+      postMessage("Amazing! Despite being orphaned at birth, the mango tree continues to grow thanks to his new gentle caregiver.", request, imageUrls.mangoStage3);
+      stage++;
+      break;
+    case 4:
+      postMessage("Success!! Mangos start to grow! Sadly, not enough mangos to feed the nearby village, which is currently suffering under the cruel fist of fascism.", request, imageUrls.mangoStage4);
+      stage++;
+      break;
+    case 5:
+      postMessage("You did it!! The mango tree grew enough mangos to feed the village. All of the mango tree's friends apologized and everyone is happy. All thanks to the one and only Luis!", request, imageUrls.mangoStage5);
+      stage = 1;
+      break;
+    default:
+      stage = 1;
+      postMessage("uh oh, the mango tree needs more help. Try again!", request);
+      break;
+  }
+
 }
 
 function mention(userId, name) {
