@@ -52,11 +52,12 @@ function respond() {
         postMessage("I am glad to see you are a holes of color ally.");
       } else if (request.text.toLowerCase() === "grow" && request.user_id == userIds.phillipUserId) {
         growDick()
-      } else if (request.attachments.length > 0 && request.attachments[0].type == "image" && request.user_id == userIds.tarekUserId) {
-        postMessage("So cute <3 <3 <3")
-      }
+      } 
 
-    } else {
+    } else if (request.attachments.length > 0 && request.attachments[0].type == "image" && request.user_id == userIds.tarekUserId) {
+      postMessage("So cute <3 <3 <3")
+    }
+    else {
       this.res.writeHead(200);
       this.res.end();
     }
