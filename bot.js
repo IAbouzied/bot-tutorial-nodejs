@@ -6,6 +6,15 @@ var botID = process.env.BOT_ID;
 
 var imageUrls = {
   benStillerImage: "https://i.groupme.com/199x212.jpeg.dc882ad81724453398237fb8cd23620d'",
+  mango1: "https://i.groupme.com/512x512.jpeg.7ffb11da0be14ced9f060573e4e70927",
+  mango2: "https://i.groupme.com/512x512.jpeg.85fff75b16244668aae4e36cbb7bb937",
+  mango3: "https://i.groupme.com/512x512.jpeg.7f676d6217464734b6b9d85eaffc9ec6",
+  mango4: "https://i.groupme.com/512x512.jpeg.8b109a8595744866a678f508600f0bc4",
+  mango5: "https://i.groupme.com/512x512.jpeg.9a38932f66884f79aadc2364f66a9013"
+};
+
+var userIds = {
+  luisUserId: "24104270"
 };
 
 function respond() {
@@ -22,7 +31,7 @@ function respond() {
       postMessage("Excuse me!!1! This is a Christian minecraft server. Please keep satan language to a minimum. Thank you.");
     } else if (checkLookAtThisDood(request.text)) {
       postMessage("https://www.youtube.com/watch?v=ZXWI9oINBpA", request);
-    } else if (isLuisABitch(request.text) && request.user_id == "24104270") {
+    } else if (isLuisABitch(request.text) && request.user_id == userIds.luisUserId) {
       postMessage("Luis stop being a lil bitch.");
     } else if (request.text.toLowerCase() === "grow" && request.user_id == "24104270") {
       growMangoTree();
@@ -30,6 +39,10 @@ function respond() {
       postMessage("", request, imageUrls.benStillerImage);
     } else if (doesJoeRoganJoinChat(request.text)) {
       postMessage("Joe Rogan has joined the chat.");
+    } else if (checkAskingAboutMeeting(request.text)) {
+      postMessage("SSA Meetings are Wednesdays 5:30-6:30pm in PAR 105");
+    } else if (checkBlackHole(request.text)) {
+      postMessage("I am glad to see you are a holes of color ally.");
     }
 
   } else {
@@ -37,6 +50,8 @@ function respond() {
     this.res.end();
   }
 }
+
+// OUR CHECKS
 
 function checkCussWords(text) {
   var cussCount = (text.toLowerCase().match(/fuck/g) || []).length;
@@ -101,6 +116,16 @@ function growMangoTree() {
 
 }
 
+function checkAskingAboutMeeting(text) {
+  var meetingRegex = /[what\stime|when|where].+meeting/;
+  return meetingRegex.test(text.toLowerCase());
+}
+
+function checkBlackHole(text) {
+  var regex = /black\shole/;
+  return regex.test(text.toLowerCase());
+}
+
 function mention(userId, name) {
   var nameLength = name.length;
   var attachments = {
@@ -124,6 +149,8 @@ function image(url) {
 
   return attachments;
 }
+
+
 
 function postMessage(responseText, request, imageUrl) {
   request = request || null;
