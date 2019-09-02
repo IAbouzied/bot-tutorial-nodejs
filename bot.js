@@ -26,9 +26,13 @@ var userIds = {
   alexandersUserId: "30606247"
 };
 
-var lastMentionResponseTime = 0;
-var lastMessagedAlexanderTime = 0;
-var lastAskedForRideTime = 0;
+var timers = {
+  lastMentionResponseTime: 0,
+  lastMessagedAlexanderTime: 0,
+  lastAskedForRideTime: 0,
+
+};
+
 
 var mentionResponses = [
   "I have an exam coming up so I can't really talk right now :(",
@@ -234,8 +238,8 @@ function checkPodcast(text) {
 function checkNeedsRide(text, request) {
 	var regex = /a\sride/;
 	var delay = 60 * 60 * 24;
-	if (lastAskedForRideTime + delay < request.created_at) {
-		lastAskedForRideTime = request.created_at;
+	if (timers.lastAskedForRideTime + delay < request.created_at) {
+		timers.lastAskedForRideTime = request.created_at;
 		return regex.test(text.toLowerCase());
 	}
 	return false;
@@ -254,25 +258,25 @@ function botMentionResponse(text, request) {
     postMessage("Umm I don't talk to perverts", request);
   } else if (insultRegex.test(text.toLowerCase()) && request.avatar_url != null) {
     postMessage("bruh... look at this dood", request, request.avatar_url);
-  } else if (request.created_at > lastMentionResponseTime + delay) {
-    lastMentionResponseTime = request.created_at;
+  } else if (request.created_at > timers.lastMentionResponseTime + delay) {
+    timers.lastMentionResponseTime = request.created_at;
     postMessage(mentionResponses[Math.floor(Math.random() * mentionResponses.length)], request);
   } else {
-    console.log("Need to wait " + (lastMentionResponseTime + delay - request.created_at));
+    console.log("Need to wait " + (timers.lastMentionResponseTime + delay - request.created_at));
   }
 }
 
 function crushAlexander(request) {
   var delay = 60 * 60 * 24;
   var shouldMessage = Math.floor(Math.random() * 5) == 0;
-  if (lastMessagedAlexanderTime + delay < request.created_at) {
+  if (timers.lastMessagedAlexanderTime + delay < request.created_at) {
     if (messagedAlexander === false && shouldMessage) {
       postMessage("Why do you think that?", request);
       messagedAlexander = true;
     } else if (messagedAlexander) {
       postMessage("Actually sorry nevermind I don't give a shit", request);
       messagedAlexander = false;
-      lastMessagedAlexanderTime = request.created_at;
+      timers.lastMessagedAlexanderTime = request.created_at;
     }
   }
 }
