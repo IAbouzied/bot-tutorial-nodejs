@@ -4,6 +4,10 @@ var HTTPS = require('https');
 
 var botID = process.env.BOT_ID;
 
+var imageUrls = {
+  benStillerImage: "https://i.groupme.com/199x212.jpeg.dc882ad81724453398237fb8cd23620d'",
+};
+
 function respond() {
   var request = JSON.parse(this.req.chunks[0]),
       botRegex = /^\/cool guy$/;
@@ -20,6 +24,8 @@ function respond() {
       postMessage("https://www.youtube.com/watch?v=ZXWI9oINBpA", request);
     } else if (isLuisABitch(request.text) && request.user_id == "24104270") {
       postMessage("Luis stop being a lil bitch.")
+    } else if (checkSamHarris(request.text)) {
+      postMessage("", request, imageUrls.benStillerImage);
     }
 
   } else {
@@ -47,6 +53,10 @@ function checkLookAtThisDood(text) {
   return text.toLowerCase().match(/dood/);
 }
 
+function checkSamHarris(text) {
+  return text.toLowerCase().indexOf("sam harris") > -1;
+}
+
 function mention(userId, name) {
   var nameLength = name.length;
   var attachments = {
@@ -62,7 +72,16 @@ function mention(userId, name) {
   return attachments;
 }
 
-function postMessage(responseText, request) {
+function image(url) {
+  var attachments = {
+    "type": "image",
+    "url": url,
+  };
+
+  return attachments;
+}
+
+function postMessage(responseText, request, imageUrl) {
   request = request || null;
   var options, body, botReq;
 
@@ -79,10 +98,13 @@ function postMessage(responseText, request) {
     };
   } else {
     body = {
-      "attachments" : [mention(request.user_id, request.name)],
+      "attachments" : [mention(request.user_id, request.name),],
       "bot_id" : botID,
       "text" : "@" + request.name + " " + responseText
     };
+  }
+  if (imageUrl) {
+    body.attachments.push(image(imageUrl));
   }
 
 
