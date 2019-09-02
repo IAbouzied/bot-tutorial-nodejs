@@ -26,7 +26,7 @@ function mention(userId, name) {
       userId
     ],
     "loci":[
-      [0,nameLength]
+      [0,nameLength + 1]
     ]
   }
 
@@ -47,7 +47,7 @@ function postMessage(request) {
   body = {
     "attachments" : [mention(request.user_id, request.name)],
     "bot_id" : botID,
-    "text" : botResponse
+    "text" : "@" + request.name + botResponse;
   };
 
   console.log('sending ' + botResponse + ' to ' + botID);
