@@ -14,6 +14,18 @@ var urls = {
   podcast: "https://www.youtube.com/playlist?list=PLY6l98_nZ6T2WR7Jhb7q4adgkIVy1bM53"
 };
 
+var simpleResponses = [
+	"k",
+	"cool",
+	"wow",
+	"nice",
+	"dope",
+	"that's lit",
+	"bruh",
+	"damn",
+	"ok"
+]
+
 var mangoStage = 1;
 var dickStage = 1;
 var messagedAlexander = false;
@@ -26,10 +38,13 @@ var userIds = {
   alexandersUserId: "30606247"
 };
 
-var lastMentionResponseTime = 0;
-var lastMessagedAlexanderTime = 0;
-var lastAskedForRideTime = 0;
-var lastMentionedCatFactTime = 0;
+var timers = {
+  lastMentionResponseTime: 0,
+  lastMessagedAlexanderTime: 0,
+  lastAskedForRideTime: 0,
+  var lastMentionedCatFactTime = 0;
+};
+
 
 var mentionResponses = [
   "I have an exam coming up so I can't really talk right now :(",
@@ -91,14 +106,17 @@ function myRespond(request) {
         growDick();
       } else if (request.user_id == userIds.alexandersUserId) {
         crushAlexander(request);
-      } else if (checkNeedsRide(request.text)) {
+      } else if (checkNeedsRide(request.text, request)) {
       	postMessage("Can I get a ride too?")
       } else if (checkPodcast(request.text)) {
         postMessage("Speaking of podcasts this is one of my personal favorites: " + urls.podcast);
       } else if (checkBible(request.text)) {
-        postMessage("Speaking of the Bible, this verse really spoke to me the other day: " + randomBibleVerses[Math.floor(Math.random() * randomBibleVerses.length)]);
-      } else if (checkCatMention(request.text)) {
-        getCatFact();
+        postMessage("Speaking of the Bible, this verse really spoke to me the other day: " + randomBibleVerses[Math.floor(Math.random() * randomBibleVerses.length)], request);
+      } else if (checkLeftGroup(request)) {
+        postMessage("These bitches ain't loyal");
+      } else {
+      	// 1/75 chance
+      	simpleResponse()
       }
     } else if (request.attachments.length > 0 && request.attachments[0].type == "image" && request.user_id == userIds.ejUserId) {
       postMessage("So cute <3 <3 <3");
@@ -111,6 +129,12 @@ function myRespond(request) {
 }
 
 // OUR CHECKS
+
+function simpleResponse() {
+	if (Math.floor(Math.random() * 25) == 0) {
+		postMessage(simpleResponses[Math.floor(Math.random()*simpleResponses.length)])
+	}
+}
 
 function checkCussWords(text) {
   var cussCount = (text.toLowerCase().match(/fuck|shit|bitch/g) || []).length;
@@ -232,11 +256,11 @@ function checkPodcast(text) {
   return regex.test(text.toLowerCase());
 }
 
-function checkNeedsRide(text) {
+function checkNeedsRide(text, request) {
 	var regex = /a\sride/;
 	var delay = 60 * 60 * 24;
-	if (lastAskedForRideTime + delay < request.created_at) {
-		lastAskedForRideTime = request.created_at;
+	if (timers.lastAskedForRideTime + delay < request.created_at) {
+		timers.lastAskedForRideTime = request.created_at;
 		return regex.test(text.toLowerCase());
 	}
 	return false;
@@ -275,6 +299,11 @@ function getCatFact() {
   catFact.end(JSON.stringify(body));
 }
 
+  function checkLeftGroup(request) {
+    var regex = /has\sleft\sthe\sgroup/;
+    return (request.sender_type == "system") && regex.test(request.text.toLowerCase());
+}
+
 function botMentionResponse(text, request) {
   var sexualWordsRegex = /sex|blowjob|naked|suck\smy\sdick|cock|fuck\sme|girlfriend|boyfriend|gay|lesbian/;
   var insultRegex = /fuck\syou|go\sto\shell|i\shate\syou|you\ssuck|suck\smy\sdick|die|dumb|stupid|annoying|leave|stop|shut\sup|be\squiet|fuck\soff/;
@@ -283,25 +312,25 @@ function botMentionResponse(text, request) {
     postMessage("Umm I don't talk to perverts", request);
   } else if (insultRegex.test(text.toLowerCase()) && request.avatar_url != null) {
     postMessage("bruh... look at this dood", request, request.avatar_url);
-  } else if (request.created_at > lastMentionResponseTime + delay) {
-    lastMentionResponseTime = request.created_at;
+  } else if (request.created_at > timers.lastMentionResponseTime + delay) {
+    timers.lastMentionResponseTime = request.created_at;
     postMessage(mentionResponses[Math.floor(Math.random() * mentionResponses.length)], request);
   } else {
-    console.log("Need to wait " + (lastMentionResponseTime + delay - request.created_at));
+    console.log("Need to wait " + (timers.lastMentionResponseTime + delay - request.created_at));
   }
 }
 
 function crushAlexander(request) {
   var delay = 60 * 60 * 24;
   var shouldMessage = Math.floor(Math.random() * 5) == 0;
-  if (lastMessagedAlexanderTime + delay < request.created_at) {
+  if (timers.lastMessagedAlexanderTime + delay < request.created_at) {
     if (messagedAlexander === false && shouldMessage) {
       postMessage("Why do you think that?", request);
       messagedAlexander = true;
     } else if (messagedAlexander) {
       postMessage("Actually sorry nevermind I don't give a shit", request);
       messagedAlexander = false;
-      lastMessagedAlexanderTime = request.created_at;
+      timers.lastMessagedAlexanderTime = request.created_at;
     }
   }
 }
