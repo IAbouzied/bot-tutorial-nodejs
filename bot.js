@@ -90,7 +90,7 @@ function myRespond(request) {
         growDick();
       } else if (request.user_id == userIds.alexandersUserId) {
         crushAlexander(request);
-      } else if (checkNeedsRide(request.text)) {
+      } else if (checkNeedsRide(request.text, request)) {
       	postMessage("Can I get a ride too?")
       } else if (checkPodcast(request.text)) {
         postMessage("Speaking of podcasts this is one of my personal favorites: " + urls.podcast);
