@@ -13,11 +13,14 @@ var imageUrls = {
   mango5: "https://i.groupme.com/512x512.jpeg.9a38932f66884f79aadc2364f66a9013"
 };
 
-var stage = 1;
+var mangoStage = 1;
+var dickStage = 1;
 
 var userIds = {
   luisUserId: "24104270",
   tarekUserId: "31433361",
+  phillipUserId: "48552024",
+  ejUserId: "26034029"
 };
 
 var lastMentionResponseTime = 0;
@@ -49,7 +52,7 @@ function respond() {
         postMessage("https://www.youtube.com/watch?v=ZXWI9oINBpA", request);
       } else if (isLuisABitch(request.text) && request.user_id == userIds.luisUserId) {
         postMessage("Luis stop being a lil bitch.");
-      } else if (request.text.toLowerCase() === "grow" && request.user_id == userIds.tarekUserId) {
+      } else if (request.text.toLowerCase() === "grow" && request.user_id == userIds.luisUserId) {
         growMangoTree(request);
       } else if (checkSamHarris(request.text)) {
         postMessage("", request, imageUrls.benStillerImage);
@@ -59,8 +62,13 @@ function respond() {
         postMessage("SSA Meetings are Wednesdays 5:30-6:30pm in PAR 105");
       } else if (checkBlackHole(request.text)) {
         postMessage("I am glad to see you are a holes of color ally.");
-      }
-    } else {
+      } else if (request.text.toLowerCase() === "grow" && request.user_id == userIds.phillipUserId) {
+        growDick()
+      } 
+    } else if (request.attachments.length > 0 && request.attachments[0].type == "image" && request.user_id == userIds.ejUserId) {
+      postMessage("So cute <3 <3 <3")
+    }
+    else {
       this.res.writeHead(200);
       this.res.end();
     }
@@ -79,6 +87,14 @@ function checkCussWords(text) {
   }
   return false;
 }
+
+// function poll(title, itemList) {
+//   if ()
+//   postMessage("*** NEW POLL ***\n" + title)
+//   for(var i = 0; i < itemList.length; i++)  {
+//     postMessage("Like this message to vote for " + itemList[i].toUpperCase());
+//   }
+// }
 
 function doesJoeRoganJoinChat(text) {
   var txt = text.toLowerCase();
@@ -100,31 +116,59 @@ function checkSamHarris(text) {
   return text.toLowerCase().indexOf("sam harris") > -1;
 }
 
+function growDick() {
+  switch(dickStage) {
+    case 1:
+      postMessage("8=D");
+      dickStage++;
+      break;
+    case 2:
+      postMessage("8==D");
+      dickStage++;
+      break;
+    case 3:
+      postMessage("8===D");
+      dickStage++;
+      break;
+    case 4:
+      postMessage("8====D");
+      dickStage++;
+      break;
+    case 5:
+      postMessage("8=====D~~~")
+      dickStage = 1;
+      break;
+    default:
+      dickStage = 1;
+      break;
+  }
+}
+
 function growMangoTree(request) {
 
-  switch (stage) {
+  switch (mangoStage) {
     case 1:
       postMessage("A wild mango tree has appeared!", request, imageUrls.mango1);
-      stage++;
+      mangoStage++;
       break;
     case 2:
       postMessage("The baby mango tree transforms himself into adolescence! Unfortunately, his peers still think he is a loser for he has no mangos yet.", request, imageUrls.mango2);
-      stage++;
+      mangoStage++;
       break;
     case 3:
       postMessage("Amazing! Despite being orphaned at birth, the mango tree continues to grow thanks to his new gentle caregiver.", request, imageUrls.mango3);
-      stage++;
+      mangoStage++;
       break;
     case 4:
       postMessage("Success!! Mangos start to grow! Sadly, not enough mangos to feed the nearby village, which is currently suffering under the cruel fist of fascism.", request, imageUrls.mango4);
-      stage++;
+      mangoStage++;
       break;
     case 5:
       postMessage("You did it!! The mango tree grew enough mangos to feed the village. All of the mango tree's friends apologized and everyone is happy. All thanks to the one and only Luis!", request, imageUrls.mango5);
-      stage = 1;
+      mangoStage = 1;
       break;
     default:
-      stage = 1;
+      mangoStage = 1;
       postMessage("uh oh, the mango tree needs more help. Try again!", request);
       break;
   }
@@ -190,6 +234,7 @@ function image(url) {
 
 function postMessage(responseText, request, imageUrl) {
   request = request || null;
+  imageUrl = imageUrl || null;
   var options, body, botReq;
 
   options = {
