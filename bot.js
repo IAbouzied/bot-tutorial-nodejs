@@ -67,7 +67,7 @@ function myRespond(request) {
       this.res.end();
     } else if (request.text) {
       if (checkBotMention(request.text)) {
-        setTimeout(botMentionResponse, 7 *1000, request.text, request);
+        setTimeout(botMentionResponse, 4 *1000, request.text, request);
       } else if (checkCussWords(request.text)) {
         postMessage("Excuse me!!1! This is a Christian minecraft server. Please keep satan language to a minimum. Thank you.");
       } else if (checkLookAtThisDood(request.text)) {
@@ -222,7 +222,7 @@ function checkBotMention(text) {
 }
 
 function botMentionResponse(text, request) {
-  var sexualWordsRegex = /sex|blowjob|naked|suck\smy\sdick|fuck\sme|girlfriend|boyfriend|gay|lesbian/;
+  var sexualWordsRegex = /sex|blowjob|naked|suck\smy\sdick|cock|fuck\sme|girlfriend|boyfriend|gay|lesbian/;
   var insultRegex = /fuck\syou|go\sto\shell|i\shate\syou|you\ssuck|suck\smy\sdick|die|dumb|stupid|annoying|leave|stop|shut\sup|be\squiet|fuck\soff/;
   var delay = 7 * 60;
   if (sexualWordsRegex.test(text.toLowerCase())) {
