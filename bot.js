@@ -194,11 +194,11 @@ function growDick(request) {
       dickStage++;
       break;
     case 4:
-      postMessage("8====D");
+      postMessage("8======D");
       dickStage++;
       break;
     case 5:
-      postMessage("8=====D~~~")
+      postMessage("8=========D~~~~")
       postMessage("Congratulations you made it ejactulate!!!", request)
       dickStage = 1;
       break;
@@ -266,12 +266,9 @@ function checkPodcast(text) {
 function checkNeedsRide(text, request) {
 	var regex = /a\sride/;
 	if (notDoneInLast24Hours(timers.lastAskedForRideTime, request.created_at)) {
-    return regex.test(text.toLowerCase());
-  }
-	// if (timers.lastAskedForRideTime + delay < request.created_at) {
-	// 	timers.lastAskedForRideTime = request.created_at;
-	// 	return regex.test(text.toLowerCase());
-	// }
+		timers.lastAskedForRideTime = request.created_at;
+		return regex.test(text.toLowerCase());
+	}
 	return false;
 }
 
@@ -337,11 +334,7 @@ function image(url) {
 
 function notDoneInLast24Hours(timer, created_at) {
   var delay = 60 * 60 * 24;
-  if (timer + delay < created_at) {
-    timer = created_at;
-    return true;
-  }
-  return false;
+  return timer + delay < created_at;
 }
 
 
