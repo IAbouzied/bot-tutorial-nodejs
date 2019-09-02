@@ -37,6 +37,15 @@ var mentionResponses = [
   "Driving rn",
 ];
 
+var randomBibleVerses = [
+  '“Slaves, submit yourselves to your masters with all respect, not only to the good and gentle but also to the cruel.” (1 Peter 2:18)',
+  '“Wives, submit to your husbands as to the Lord.” (Ephesians 5:22)',
+  '“This is what the Lord Almighty says... ‘Now go and strike Amalek and devote to destruction all that they have. Do not spare them, but kill both man and woman, child and infant, ox and sheep, camel and donkey.’” (1 Samuel 15:3)',
+  '“I do not permit a woman to teach or to have authority over a man; she must be silent.” (1 Timothy 2:12)',
+  '"Master, Moses wrote unto us, If a man&#39;s brother die, and leave his wife behind him, and leave no children, that his brother should take his wife, and raise up seed unto his brother." (Mark 12:19)',
+  '"...thou shalt not approach unto a woman to uncover her nakedness, as long as she is put apart for her uncleanness." (Leviticus 18:19)',
+];
+
 
 function respond() {
   var request = JSON.parse(this.req.chunks[0]);
@@ -80,8 +89,13 @@ function myRespond(request) {
         growDick();
       } else if (request.user_id == userIds.alexandersUserId) {
         crushAlexander(request);
+<<<<<<< HEAD
       } else if (checkPodcast(request.text)) {
         postMessage("Speaking of podcasts this is one of my personal favorites: " + urls.podcast);
+=======
+      } else if (checkBible(request.text)) {
+        postMessage("Speaking of the Bible, this verse really spoke to me the other day: " + randomBibleVerses[Math.floor(Math.random() * randomBibleVerses.length)], request);
+>>>>>>> 114ec7fa64cb43e1e35d2823589d0cb5b7b7f754
       }
     } else if (request.attachments.length > 0 && request.attachments[0].type == "image" && request.user_id == userIds.ejUserId) {
       postMessage("So cute <3 <3 <3")
@@ -199,6 +213,10 @@ function checkAskingAboutMeeting(text) {
 function checkBlackHole(text) {
   var regex = /black\shole/;
   return regex.test(text.toLowerCase());
+}
+
+function checkBible(text) {
+  return text.toLowerCase().match(/bible/);
 }
 
 function checkBotMention(text) {
