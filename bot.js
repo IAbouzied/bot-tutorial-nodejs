@@ -314,9 +314,9 @@ function checkCatMention(text) {
 }
 
 function getCatFact() {
-  axios.get("https://cat-fact.herokuapp.com/facts")
+  axios.get("https://cat-fact.herokuapp.com/facts/random")
       .then(function(res) {
-        return postMessage("Dude, did you know that " + res.data.all[Math.floor(Math.random() * res.data.all.length)].text);
+        return postMessage("Dude, did you know that " + res.data.text);
       })
       .catch(function(err) { console.log(err)});
 }
