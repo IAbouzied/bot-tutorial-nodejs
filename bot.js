@@ -42,7 +42,13 @@ var timers = {
   lastMentionResponseTime: 0,
   lastMessagedAlexanderTime: 0,
   lastAskedForRideTime: 0,
-
+  lastCheckedCussWordsTime: 0,
+  lastDoodVideoTime: 0,
+  lastBenStillerPicTime: 0,
+  lastJoeRoganChatTime: 0,
+  lastBlackHolesTime: 0,
+  lastPodcastTime: 0,
+  lastBibleTime: 0
 };
 
 
@@ -95,7 +101,7 @@ function myRespond(request) {
       } else if (request.text.toLowerCase() === "grow" && request.user_id == userIds.luisUserId) {
         growMangoTree(request);
       } else if (checkSamHarris(request.text)) {
-        postMessage("", request, urls.benStillerImage);
+        postMessage("The face wisdom", request, urls.benStillerImage);
       } else if (doesJoeRoganJoinChat(request.text)) {
         postMessage("Joe Rogan has joined the chat.");
       } else if (checkAskingAboutMeeting(request.text)) {
@@ -258,11 +264,13 @@ function checkPodcast(text) {
 
 function checkNeedsRide(text, request) {
 	var regex = /a\sride/;
-	var delay = 60 * 60 * 24;
-	if (timers.lastAskedForRideTime + delay < request.created_at) {
-		timers.lastAskedForRideTime = request.created_at;
-		return regex.test(text.toLowerCase());
-	}
+	if (notDoneInLast24Hours(timers.lastAskedForRideTime, request.created_at)) {
+    return regex.test(text.toLowerCase());
+  }
+	// if (timers.lastAskedForRideTime + delay < request.created_at) {
+	// 	timers.lastAskedForRideTime = request.created_at;
+	// 	return regex.test(text.toLowerCase());
+	// }
 	return false;
 }
 
@@ -324,6 +332,15 @@ function image(url) {
   };
 
   return attachments;
+}
+
+function notDoneInLast24Hours(timer, created_at) {
+  var delay = 60 * 60 * 24;
+  if (timer + delay < created_at) {
+    timer = created_at;
+    return true;
+  }
+  return false;
 }
 
 
