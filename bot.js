@@ -15,16 +15,18 @@ var imageUrls = {
 
 var mangoStage = 1;
 var dickStage = 1;
+var messagedAlexander = false;
 
 var userIds = {
   luisUserId: "24104270",
   tarekUserId: "31433361",
   phillipUserId: "48552024",
   ejUserId: "26034029",
-  alexandersId: "30606247"
+  alexandersUserId: "30606247"
 };
 
 var lastMentionResponseTime = 0;
+var lastMessagedAlexanderTime = 0;
 
 var mentionResponses = [
   "I have an exam coming up so I can't really talk right now :(",
@@ -69,7 +71,9 @@ function respond() {
       } else if (checkBlackHole(request.text)) {
         postMessage("I am glad to see you are a holes of color ally.");
       } else if (request.text.toLowerCase() === "grow" && request.user_id == userIds.phillipUserId) {
-        growDick()
+        growDick();
+      } else if (request.user_id == userIds.tarekUserId) {
+        crushAlexander(request);
       }
     } else if (request.attachments.length > 0 && request.attachments[0].type == "image" && request.user_id == userIds.ejUserId) {
       postMessage("So cute <3 <3 <3")
@@ -209,6 +213,20 @@ function botMentionResponse(text, request) {
     postMessage(mentionResponses[Math.floor(Math.random() * mentionResponses.length)], request);
   } else {
     console.log("Need to wait " + (lastMentionResponseTime + delay - request.created_at));
+  }
+}
+
+function crushAlexander(request) {
+  var delay = 60 * 60 * 24;
+  var shouldMessage = Math.floor(Math.random() * 5) == 0;
+  if (lastMessagedAlexanderTime + delay > request.created_at && shouldMessage) {
+    if (messagedAlexander === false) {
+      postMessage("Why do you think that?", request);
+      lastMessagedAlexanderTime = request.created_at;
+    } else {
+      postMessage("Actually sorry nevermind I don't give a shit", request);
+    }
+    messagedAlexander = !messagedAlexander;
   }
 }
 
