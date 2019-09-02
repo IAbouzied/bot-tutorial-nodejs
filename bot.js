@@ -145,7 +145,8 @@ function simpleResponse() {
 function checkCussWords(text) {
   var cussCount = (text.toLowerCase().match(/fuck|shit|bitch/g) || []).length;
 
-  if (cussCount >= 3) {
+  if (notDoneInLast24Hours(timers.lastCheckedCussWordsTime, request.created_at) && cussCount >= 3) {
+    timers.lastCheckedCussWordsTime = request.created_at;
     return true;
   }
   return false;
@@ -160,8 +161,9 @@ function checkCussWords(text) {
 // }
 
 function doesJoeRoganJoinChat(text) {
-  var txt = text.toLowerCase();
-  if (txt.indexOf("dmt") > -1 || txt.indexOf("cbd") > -1 || txt.indexOf("shroom") > -1) {
+  var regex = /dmt|cbd|shroom/;
+  if (notDoneInLast24Hours(timers.lastJoeRoganChatTime, request.created_at) && regex.test(text.toLowerCase()) {
+    timers.lastJoeRoganChatTime = request.created_at;
     return true;
   }
   return false;
@@ -172,11 +174,21 @@ function isLuisABitch(text) {
 }
 
 function checkLookAtThisDood(text) {
-  return text.toLowerCase().match(/dood/);
+  var regex = /dood/;
+  if (notDoneInLast24Hours(timers.lastDoodVideoTime, request.created_at) && regex.test(text.toLowerCase()) {
+    timers.lastDoodVideoTime = request.created_at;
+    return true;
+  }
+  return false;
 }
 
 function checkSamHarris(text) {
-  return text.toLowerCase().indexOf("sam harris") > -1;
+  var regex = /sam\sharris/;
+  if (notDoneInLast24Hours(timers.lastBenStillerPicTime, request.created_at) && regex.test(text.toLowerCase()) {
+    timers.lastBenStillerPicTime = request.created_at;
+    return true;
+  }
+  return false;
 }
 
 function growDick(request) {
@@ -246,11 +258,20 @@ function checkAskingAboutMeeting(text) {
 
 function checkBlackHole(text) {
   var regex = /black\shole/;
-  return regex.test(text.toLowerCase());
+  if (notDoneInLast24Hours(timers.lastBlackHolesTimeB, request.created_at) && regex.test(text.toLowerCase()) {
+    timers.lastBlackHolesTimeB = request.created_at;
+    return true;
+  }
+  return false;
 }
 
 function checkBible(text) {
-  return text.toLowerCase().match(/bible/);
+  var regex = /bible/;
+  if (notDoneInLast24Hours(timers.lastBibleTime, request.created_at) && regex.test(text.toLowerCase()) {
+    timers.lastBibleTime = request.created_at;
+    return true;
+  }
+  return false;
 }
 
 function checkBotMention(text) {
@@ -260,14 +281,18 @@ function checkBotMention(text) {
 
 function checkPodcast(text) {
   var regex = /podcast/;
-  return regex.test(text.toLowerCase());
+  if (notDoneInLast24Hours(timers.lastPodcastTime, request.created_at) && regex.test(text.toLowerCase()) {
+    timers.lastPodcastTime = request.created_at;
+    return true;
+  }
+  return false;
 }
 
 function checkNeedsRide(text, request) {
 	var regex = /a\sride/;
-	if (notDoneInLast24Hours(timers.lastAskedForRideTime, request.created_at)) {
+	if (notDoneInLast24Hours(timers.lastAskedForRideTime, request.created_at) && regex.test(text.toLowerCase()) {
 		timers.lastAskedForRideTime = request.created_at;
-		return regex.test(text.toLowerCase());
+		return true;
 	}
 	return false;
 }
