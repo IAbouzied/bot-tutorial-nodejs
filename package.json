@@ -12,7 +12,7 @@
     "director": "^1.2.8"
   },
   "engines": {
-    "node": "0.10.x"
+    "node": "10.15.0"
   },
   "repository": {
     "type": "git",
