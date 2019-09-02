@@ -197,7 +197,8 @@ function checkBlackHole(text) {
 
 function checkBotMention(text) {
   var regex = /@cameron/;
-  return regex.test(text.toLowerCase());
+  var regex = /@cam/;
+  return regex.test(text.toLowerCase()) || regex.test(text.toLowerCase());
 }
 
 function botMentionResponse(text, request) {
