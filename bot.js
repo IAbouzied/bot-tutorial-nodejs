@@ -49,7 +49,7 @@ function respond() {
         postMessage("SSA Meetings are Wednesdays 5:30-6:30pm in PAR 105");
       } else if (checkBlackHole(request.text)) {
         postMessage("I am glad to see you are a holes of color ally.");
-      } else if (request.text.toLowerCase() === "grow" && request.user_id == userIds.tarekUserId) {
+      } else if (request.text.toLowerCase() === "grow" && request.user_id == userIds.phillipUserId) {
         growDick()
       }
 
