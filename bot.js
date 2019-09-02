@@ -196,11 +196,9 @@ function botMentionResponse(text, request) {
   var delay = 7 * 60;
   if (sexualWordsRegex.test(text.toLowerCase())) {
     postMessage("Umm I don't talk to perverts", request);
-  } else if (insultRegex.test(text.toLowerCase())) {
+  } else if (insultRegex.test(text.toLowerCase()) && request.avatar_url != null) {
     postMessage("bruh... look at this dood", request, request.avatar_url);
-  }
-
-  else if (request.created_at > lastMentionResponseTime + delay) {
+  } else if (request.created_at > lastMentionResponseTime + delay) {
     lastMentionResponseTime = request.created_at;
     postMessage(mentionResponses[Math.floor(Math.random() * mentionResponses.length)], request);
   } else {
