@@ -9,10 +9,9 @@ function respond() {
   console.log(request);
   if(request.text && botRegex.test(request.text)) {
     this.res.writeHead(200);
-    postMessage(request);
+    postMessage("Suhh dude");
     this.res.end();
   } else {
-    console.log("don't care");
     this.res.writeHead(200);
     this.res.end();
   }
@@ -33,10 +32,8 @@ function mention(userId, name) {
   return attachments;
 }
 
-function postMessage(request) {
-  var botResponse, options, body, botReq;
-
-  botResponse = "Suhh dude";
+function postMessage(responseText, request = null) {
+  var options, body, botReq;
 
   options = {
     hostname: 'api.groupme.com',
@@ -44,13 +41,22 @@ function postMessage(request) {
     method: 'POST'
   };
 
-  body = {
-    "attachments" : [mention(request.user_id, request.name)],
-    "bot_id" : botID,
-    "text" : "@" + request.name + " " + botResponse
-  };
+  if (request == null) {
+    body = {
+      "bot_id" : botID,
+      "text" : responseText
+    };
+  } else {
+    body = {
+      "attachments" : [mention(request.user_id, request.name)],
+      "bot_id" : botID,
+      "text" : "@" + request.name + " " + responseText
+    };
+  }
 
-  console.log('sending ' + botResponse + ' to ' + botID);
+
+  console.log('sending ' + responseText + ' to ' + botID);
+  console.log(body);
 
   botReq = HTTPS.request(options, function(res) {
       if(res.statusCode == 202) {
