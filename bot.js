@@ -90,18 +90,14 @@ function myRespond(request) {
         growDick();
       } else if (request.user_id == userIds.alexandersUserId) {
         crushAlexander(request);
-<<<<<<< HEAD
-<<<<<<< HEAD
       } else if (checkNeedsRide(request.text)) {
       	postMessage("Can I get a ride too?")
-=======
       } else if (checkPodcast(request.text)) {
         postMessage("Speaking of podcasts this is one of my personal favorites: " + urls.podcast);
->>>>>>> c13e3b332ef6c1b886195f3d46bce281294e8a13
-=======
+      } else if (checkPodcast(request.text)) {
+        postMessage("Speaking of podcasts this is one of my personal favorites: " + urls.podcast);
       } else if (checkBible(request.text)) {
         postMessage("Speaking of the Bible, this verse really spoke to me the other day: " + randomBibleVerses[Math.floor(Math.random() * randomBibleVerses.length)], request);
->>>>>>> 114ec7fa64cb43e1e35d2823589d0cb5b7b7f754
       }
     } else if (request.attachments.length > 0 && request.attachments[0].type == "image" && request.user_id == userIds.ejUserId) {
       postMessage("So cute <3 <3 <3")
