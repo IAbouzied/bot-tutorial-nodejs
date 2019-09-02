@@ -192,12 +192,11 @@ function checkBotMention(text) {
 
 function botMentionResponse(text, request) {
   var sexualWordsRegex = /sex|blowjob|naked|suck\smy\sdick|fuck\sme|girlfriend|boyfriend|gay|lesbian/;
-
-
-  var delay = 7 * 60;
   if (sexualWordsRegex.test(text.toLowerCase())) {
     postMessage("Umm I don't talk to perverts", request);
   }
+
+  var delay = 7 * 60;
   else if (request.created_at > lastMentionResponseTime + delay) {
     lastMentionResponseTime = request.created_at;
     postMessage(mentionResponses[Math.floor(Math.random() * mentionResponses.length)], request);
