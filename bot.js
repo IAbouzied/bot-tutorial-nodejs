@@ -18,6 +18,8 @@ function respond() {
       postMessage("Excuse me!!1! This is a Christian minecraft server. Please keep satan language to a minimum. Thank you.")
     } else if (checkLookAtThisDood(request.text)) {
       postMessage("https://www.youtube.com/watch?v=ZXWI9oINBpA", request);
+    } else if (isLuisABitch(request.text) && request.user_id == "24104270") {
+      postMessage("Luis stop being a lil bitch.")
     }
 
   } else {
@@ -35,6 +37,10 @@ function checkCussWords(text) {
     return true;
   }
   return false;
+}
+
+function isLuisABitch(text) {
+  return text.toLowerCase().indexOf("i hate") > -1;
 }
 
 function checkLookAtThisDood(text) {
