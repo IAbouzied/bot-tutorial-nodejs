@@ -219,8 +219,8 @@ function botMentionResponse(text, request) {
 function crushAlexander(request) {
   var delay = 60 * 60 * 24;
   var shouldMessage = Math.floor(Math.random() * 5) == 0;
-  if (lastMessagedAlexanderTime + delay > request.created_at && shouldMessage) {
-    if (messagedAlexander === false) {
+  if (lastMessagedAlexanderTime + delay > request.created_at) {
+    if (messagedAlexander === false && shouldMessage) {
       postMessage("Why do you think that?", request);
       lastMessagedAlexanderTime = request.created_at;
     } else {
