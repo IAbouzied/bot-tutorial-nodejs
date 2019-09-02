@@ -131,7 +131,7 @@ function myRespond(request) {
 // OUR CHECKS
 
 function simpleResponse() {
-	if (Math.floor(Math.random() * 25) == 0) {
+	if (Math.floor(Math.random() * 75) == 0) {
 		postMessage(simpleResponses[Math.floor(Math.random()*simpleResponses.length)])
 	}
 }
