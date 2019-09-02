@@ -39,7 +39,7 @@ function respond() {
         postMessage("https://www.youtube.com/watch?v=ZXWI9oINBpA", request);
       } else if (isLuisABitch(request.text) && request.user_id == userIds.luisUserId) {
         postMessage("Luis stop being a lil bitch.");
-      } else if (request.text.toLowerCase() === "grow" && request.user_id == userIds.tarekUserId) {
+      } else if (request.text.toLowerCase() === "grow" && request.user_id == userIds.luisUserId) {
         growMangoTree(request);
       } else if (checkSamHarris(request.text)) {
         postMessage("", request, imageUrls.benStillerImage);
@@ -118,6 +118,8 @@ function growDick() {
     default:
       dickStage = 1;
       break;
+  }
+}
 
 function growMangoTree(request) {
 
