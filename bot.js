@@ -20,6 +20,16 @@ var userIds = {
   tarekUserId: "31433361",
 };
 
+var lastMentionResponseTime = 0;
+
+var mentionResponses = [
+  "I have an exam coming up so I can't really talk right now :(",
+  "Lets talk next meeting",
+  "I'm willing to talk about this but I don't like groupme shoot me a text",
+  "Phones about to die I'll follow up later",
+  "Driving rn",
+];
+
 function respond() {
   var request = JSON.parse(this.req.chunks[0]),
       botRegex = /^\/cool guy$/;
@@ -31,7 +41,9 @@ function respond() {
       postMessage("Suhh dude");
       this.res.end();
     } else if (request.text) {
-      if (checkCussWords(request.text)) {
+      if (checkBotMention(request.text)) {
+        setTimeout(botMentionResponse, 7 *1000, request.text, request);
+      } else if (checkCussWords(request.text)) {
         postMessage("Excuse me!!1! This is a Christian minecraft server. Please keep satan language to a minimum. Thank you.");
       } else if (checkLookAtThisDood(request.text)) {
         postMessage("https://www.youtube.com/watch?v=ZXWI9oINBpA", request);
@@ -48,7 +60,6 @@ function respond() {
       } else if (checkBlackHole(request.text)) {
         postMessage("I am glad to see you are a holes of color ally.");
       }
-
     } else {
       this.res.writeHead(200);
       this.res.end();
@@ -128,6 +139,27 @@ function checkAskingAboutMeeting(text) {
 function checkBlackHole(text) {
   var regex = /black\shole/;
   return regex.test(text.toLowerCase());
+}
+
+function checkBotMention(text) {
+  var regex = /@cameron/
+  return regex.test(text.toLowerCase());
+}
+
+function botMentionResponse(text, request) {
+  var sexualWordsRegex = /sex|blowjob|naked|suck\smy\sdick|fuck\sme|girlfriend|boyfriend|gay|lesbian/;
+
+
+  var delay = 7 * 60;
+  if (sexualWordsRegex.test(text.toLowerCase())) {
+    postMessage("Umm I don't talk to perverts", request);
+  }
+  else if (request.created_at > lastMentionResponseTime + delay) {
+    lastMentionResponseTime = request.created_at;
+    postMessage(mentionResponses[Math.floor(Math.random() * mentionResponses.length)], request);
+  } else {
+    console.log("Need to wait " + (lastMentionResponseTime + delay - request.created_at));
+  }
 }
 
 function mention(userId, name) {
