@@ -276,7 +276,7 @@ function checkCatMention(text) {
 function getCatFact() {
   axios.get("https://cat-fact.herokuapp.com/facts")
       .then(res => {
-        return postMessage("Did you know that " + res.data.all[Math.floor(Math.random() * res.data.all.length)].text);
+        return postMessage("Dude, did you know that " + res.data.all[Math.floor(Math.random() * res.data.all.length)].text);
       })
       .catch(err => console.log(err));
 }
