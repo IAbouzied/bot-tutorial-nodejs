@@ -6,6 +6,11 @@ var botID = process.env.BOT_ID;
 
 var imageUrls = {
   benStillerImage: "https://i.groupme.com/199x212.jpeg.dc882ad81724453398237fb8cd23620d'",
+  mango1: "https://i.groupme.com/512x512.jpeg.7ffb11da0be14ced9f060573e4e70927",
+  mango2: "https://i.groupme.com/512x512.jpeg.85fff75b16244668aae4e36cbb7bb937",
+  mango3: "https://i.groupme.com/512x512.jpeg.7f676d6217464734b6b9d85eaffc9ec6",
+  mango4: "https://i.groupme.com/512x512.jpeg.8b109a8595744866a678f508600f0bc4",
+  mango5: "https://i.groupme.com/512x512.jpeg.9a38932f66884f79aadc2364f66a9013"
 };
 
 var userIds = {
