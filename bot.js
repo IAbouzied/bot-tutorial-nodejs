@@ -72,7 +72,7 @@ function respond() {
         postMessage("I am glad to see you are a holes of color ally.");
       } else if (request.text.toLowerCase() === "grow" && request.user_id == userIds.phillipUserId) {
         growDick();
-      } else if (request.user_id == userIds.tarekUserId) {
+      } else if (request.user_id == userIds.alexandersUserId) {
         crushAlexander(request);
       }
     } else if (request.attachments.length > 0 && request.attachments[0].type == "image" && request.user_id == userIds.ejUserId) {
