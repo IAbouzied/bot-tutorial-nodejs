@@ -1,3 +1,5 @@
+//jshint esversion: 6
+
 var HTTPS = require('https');
 
 var botID = process.env.BOT_ID;
@@ -14,8 +16,10 @@ function respond() {
   } else if (request.text) {
     if (checkCussWords(request.text)) {
       postMessage("Excuse me!!1! This is a Christian minecraft server. Please keep satan language to a minimum. Thank you.")
+    } else if (checkLookAtThisDood(request.text)) {
+      postMessage("https://www.youtube.com/watch?v=ZXWI9oINBpA", request);
     }
-    
+
   } else {
     this.res.writeHead(200);
     this.res.end();
@@ -28,9 +32,13 @@ function checkCussWords(text) {
   cussCount += (text.toLowerCase().match(/bitch/g) || []).length;
 
   if (cussCount >= 3) {
-    return true
+    return true;
   }
-  return false
+  return false;
+}
+
+function checkLookAtThisDood(text) {
+  return text.toLowerCase().match(/dood/);
 }
 
 function mention(userId, name) {
@@ -43,7 +51,7 @@ function mention(userId, name) {
     "loci":[
       [0,nameLength + 1]
     ]
-  }
+  };
 
   return attachments;
 }
