@@ -43,6 +43,13 @@ var timers = {
   lastMentionResponseTime: 0,
   lastMessagedAlexanderTime: 0,
   lastAskedForRideTime: 0,
+  lastCheckedCussWordsTime: 0,
+  lastDoodVideoTime: 0,
+  lastBenStillerPicTime: 0,
+  lastJoeRoganChatTime: 0,
+  lastBlackHolesTime: 0,
+  lastPodcastTime: 0,
+  lastBibleTime: 0
 };
 
 
@@ -86,31 +93,31 @@ function myRespond(request) {
     } else if (request.text) {
       if (checkBotMention(request.text)) {
         setTimeout(botMentionResponse, 4 *1000, request.text, request);
-      } else if (checkCussWords(request.text)) {
+      } else if (checkCussWords(request)) {
         postMessage("Excuse me!!1! This is a Christian minecraft server. Please keep satan language to a minimum. Thank you.");
-      } else if (checkLookAtThisDood(request.text)) {
+      } else if (checkLookAtThisDood(request)) {
         postMessage("https://www.youtube.com/watch?v=ZXWI9oINBpA", request);
       } else if (isLuisABitch(request.text) && request.user_id == userIds.luisUserId) {
         postMessage("Luis stop being a lil bitch.");
       } else if (request.text.toLowerCase() === "grow" && request.user_id == userIds.luisUserId) {
         growMangoTree(request);
-      } else if (checkSamHarris(request.text)) {
-        postMessage("", request, urls.benStillerImage);
-      } else if (doesJoeRoganJoinChat(request.text)) {
+      } else if (checkSamHarris(request)) {
+        postMessage("The face wisdom", request, urls.benStillerImage);
+      } else if (doesJoeRoganJoinChat(request)) {
         postMessage("Joe Rogan has joined the chat.");
       } else if (checkAskingAboutMeeting(request.text)) {
         postMessage("SSA Meetings are Wednesdays 5:30-6:30pm in PAR 105");
-      } else if (checkBlackHole(request.text)) {
+      } else if (checkBlackHole(request)) {
         postMessage("I am glad to see you are a holes of color ally.");
-      } else if (request.text.toLowerCase() === "grow" && request.user_id == userIds.phillipUserId) {
-        growDick();
+      } else if (request.text.toLowerCase() === "grow") {
+        growDick(request);
       } else if (request.user_id == userIds.alexandersUserId) {
         crushAlexander(request);
-      } else if (checkNeedsRide(request.text, request)) {
+      } else if (checkNeedsRide(request, request)) {
       	postMessage("Can I get a ride too?")
-      } else if (checkPodcast(request.text)) {
+      } else if (checkPodcast(request)) {
         postMessage("Speaking of podcasts this is one of my personal favorites: " + urls.podcast);
-      } else if (checkBible(request.text)) {
+      } else if (checkBible(request)) {
         postMessage("Speaking of the Bible, this verse really spoke to me the other day: " + randomBibleVerses[Math.floor(Math.random() * randomBibleVerses.length)], request);
       } else if (checkLeftGroup(request)) {
         postMessage("These bitches ain't loyal");
@@ -138,10 +145,12 @@ function simpleResponse() {
 	}
 }
 
-function checkCussWords(text) {
+function checkCussWords(request) {
+  var text = request.text;
   var cussCount = (text.toLowerCase().match(/fuck|shit|bitch/g) || []).length;
 
-  if (cussCount >= 3) {
+  if (notDoneInLast24Hours(timers.lastCheckedCussWordsTime, request.created_at) && cussCount >= 3) {
+    timers.lastCheckedCussWordsTime = request.created_at;
     return true;
   }
   return false;
@@ -155,9 +164,11 @@ function checkCussWords(text) {
 //   }
 // }
 
-function doesJoeRoganJoinChat(text) {
-  var txt = text.toLowerCase();
-  if (txt.indexOf("dmt") > -1 || txt.indexOf("cbd") > -1 || txt.indexOf("shroom") > -1) {
+function doesJoeRoganJoinChat(request) {
+  var regex = /dmt|cbd|shroom/;
+  var text = request.text;
+  if (notDoneInLast24Hours(timers.lastJoeRoganChatTime, request.created_at) && regex.test(text.toLowerCase())) {
+    timers.lastJoeRoganChatTime = request.created_at;
     return true;
   }
   return false;
@@ -167,15 +178,27 @@ function isLuisABitch(text) {
   return text.toLowerCase().indexOf("i hate") > -1;
 }
 
-function checkLookAtThisDood(text) {
-  return text.toLowerCase().match(/dood/);
+function checkLookAtThisDood(request) {
+  var regex = /dood/;
+  var text = request.text;
+  if (notDoneInLast24Hours(timers.lastDoodVideoTime, request.created_at) && regex.test(text.toLowerCase())) {
+    timers.lastDoodVideoTime = request.created_at;
+    return true;
+  }
+  return false;
 }
 
-function checkSamHarris(text) {
-  return text.toLowerCase().indexOf("sam harris") > -1;
+function checkSamHarris(request) {
+  var regex = /sam\sharris/;
+  var text = request.text;
+  if (notDoneInLast24Hours(timers.lastBenStillerPicTime, request.created_at) && regex.test(text.toLowerCase())) {
+    timers.lastBenStillerPicTime = request.created_at;
+    return true;
+  }
+  return false;
 }
 
-function growDick() {
+function growDick(request) {
   switch(dickStage) {
     case 1:
       postMessage("8=D");
@@ -190,11 +213,12 @@ function growDick() {
       dickStage++;
       break;
     case 4:
-      postMessage("8====D");
+      postMessage("8======D");
       dickStage++;
       break;
     case 5:
-      postMessage("8=====D~~~");
+      postMessage("8=========D~~~~")
+      postMessage("Congratulations you made it ejaculate!!!", request)
       dickStage = 1;
       break;
     default:
@@ -239,13 +263,24 @@ function checkAskingAboutMeeting(text) {
   return meetingRegex.test(text.toLowerCase());
 }
 
-function checkBlackHole(text) {
+function checkBlackHole(request) {
   var regex = /black\shole/;
-  return regex.test(text.toLowerCase());
+  var text = request.text;
+  if (notDoneInLast24Hours(timers.lastBlackHolesTime, request.created_at) && regex.test(text.toLowerCase())) {
+    timers.lastBlackHolesTime = request.created_at;
+    return true;
+  }
+  return false;
 }
 
-function checkBible(text) {
-  return text.toLowerCase().match(/bible/);
+function checkBible(request) {
+  var regex = /bible/;
+  var text = request.text;
+  if (notDoneInLast24Hours(timers.lastBibleTime, request.created_at) && regex.test(text.toLowerCase())) {
+    timers.lastBibleTime = request.created_at;
+    return true;
+  }
+  return false;
 }
 
 function checkBotMention(text) {
@@ -253,17 +288,22 @@ function checkBotMention(text) {
   return regex.test(text.toLowerCase());
 }
 
-function checkPodcast(text) {
+function checkPodcast(request) {
   var regex = /podcast/;
-  return regex.test(text.toLowerCase());
+  var text = request.text;
+  if (notDoneInLast24Hours(timers.lastPodcastTime, request.created_at) && regex.test(text.toLowerCase())) {
+    timers.lastPodcastTime = request.created_at;
+    return true;
+  }
+  return false;
 }
 
-function checkNeedsRide(text, request) {
+function checkNeedsRide(request) {
 	var regex = /a\sride/;
-	var delay = 60 * 60 * 24;
-	if (timers.lastAskedForRideTime + delay < request.created_at) {
+  var text = request.text;
+	if (notDoneInLast24Hours(timers.lastAskedForRideTime, request.created_at) && regex.test(text.toLowerCase())) {
 		timers.lastAskedForRideTime = request.created_at;
-		return regex.test(text.toLowerCase());
+		return true;
 	}
 	return false;
 }
@@ -287,7 +327,7 @@ function getCatFact() {
 }
 
 function botMentionResponse(text, request) {
-  var sexualWordsRegex = /sex|blowjob|naked|suck\smy\sdick|cock|fuck\sme|girlfriend|boyfriend|gay|lesbian/;
+  var sexualWordsRegex = /dick|sex|blowjob|naked|suck|penis|cock/;
   var insultRegex = /fuck\syou|go\sto\shell|i\shate\syou|you\ssuck|suck\smy\sdick|die|dumb|stupid|annoying|leave|stop|shut\sup|be\squiet|fuck\soff/;
   var delay = 7 * 60;
   if (sexualWordsRegex.test(text.toLowerCase())) {
@@ -339,6 +379,11 @@ function image(url) {
   };
 
   return attachments;
+}
+
+function notDoneInLast24Hours(timer, created_at) {
+  var delay = 60 * 60 * 24;
+  return timer + delay < created_at;
 }
 
 
