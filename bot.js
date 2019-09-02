@@ -74,23 +74,23 @@ function growMangoTree() {
 
   switch (stage) {
     case 1:
-      postMessage("A wild mango tree has appeared!", request, imageUrls.mangoStage1);
+      postMessage("A wild mango tree has appeared!", request, imageUrls.mango1);
       stage++;
       break;
     case 2:
-      postMessage("The baby mango tree transforms himself into adolescence! Unfortunately, his peers still think he is a loser for he has no mangos yet.", request, imageUrls.mangoStage2);
+      postMessage("The baby mango tree transforms himself into adolescence! Unfortunately, his peers still think he is a loser for he has no mangos yet.", request, imageUrls.mango2);
       stage++;
       break;
     case 3:
-      postMessage("Amazing! Despite being orphaned at birth, the mango tree continues to grow thanks to his new gentle caregiver.", request, imageUrls.mangoStage3);
+      postMessage("Amazing! Despite being orphaned at birth, the mango tree continues to grow thanks to his new gentle caregiver.", request, imageUrls.mango3);
       stage++;
       break;
     case 4:
-      postMessage("Success!! Mangos start to grow! Sadly, not enough mangos to feed the nearby village, which is currently suffering under the cruel fist of fascism.", request, imageUrls.mangoStage4);
+      postMessage("Success!! Mangos start to grow! Sadly, not enough mangos to feed the nearby village, which is currently suffering under the cruel fist of fascism.", request, imageUrls.mango4);
       stage++;
       break;
     case 5:
-      postMessage("You did it!! The mango tree grew enough mangos to feed the village. All of the mango tree's friends apologized and everyone is happy. All thanks to the one and only Luis!", request, imageUrls.mangoStage5);
+      postMessage("You did it!! The mango tree grew enough mangos to feed the village. All of the mango tree's friends apologized and everyone is happy. All thanks to the one and only Luis!", request, imageUrls.mango5);
       stage = 1;
       break;
     default:
