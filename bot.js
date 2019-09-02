@@ -92,31 +92,31 @@ function myRespond(request) {
     } else if (request.text) {
       if (checkBotMention(request.text)) {
         setTimeout(botMentionResponse, 4 *1000, request.text, request);
-      } else if (checkCussWords(request.text)) {
+      } else if (checkCussWords(request)) {
         postMessage("Excuse me!!1! This is a Christian minecraft server. Please keep satan language to a minimum. Thank you.");
-      } else if (checkLookAtThisDood(request.text)) {
+      } else if (checkLookAtThisDood(request)) {
         postMessage("https://www.youtube.com/watch?v=ZXWI9oINBpA", request);
       } else if (isLuisABitch(request.text) && request.user_id == userIds.luisUserId) {
         postMessage("Luis stop being a lil bitch.");
       } else if (request.text.toLowerCase() === "grow" && request.user_id == userIds.luisUserId) {
         growMangoTree(request);
-      } else if (checkSamHarris(request.text)) {
+      } else if (checkSamHarris(request)) {
         postMessage("The face wisdom", request, urls.benStillerImage);
-      } else if (doesJoeRoganJoinChat(request.text)) {
+      } else if (doesJoeRoganJoinChat(request)) {
         postMessage("Joe Rogan has joined the chat.");
       } else if (checkAskingAboutMeeting(request.text)) {
         postMessage("SSA Meetings are Wednesdays 5:30-6:30pm in PAR 105");
-      } else if (checkBlackHole(request.text)) {
+      } else if (checkBlackHole(request)) {
         postMessage("I am glad to see you are a holes of color ally.");
       } else if (request.text.toLowerCase() === "grow") {
         growDick(request);
       } else if (request.user_id == userIds.alexandersUserId) {
         crushAlexander(request);
-      } else if (checkNeedsRide(request.text, request)) {
+      } else if (checkNeedsRide(request, request)) {
       	postMessage("Can I get a ride too?")
-      } else if (checkPodcast(request.text)) {
+      } else if (checkPodcast(request)) {
         postMessage("Speaking of podcasts this is one of my personal favorites: " + urls.podcast);
-      } else if (checkBible(request.text)) {
+      } else if (checkBible(request)) {
         postMessage("Speaking of the Bible, this verse really spoke to me the other day: " + randomBibleVerses[Math.floor(Math.random() * randomBibleVerses.length)], request);
       } else if (checkLeftGroup(request)) {
         postMessage("These bitches ain't loyal");
@@ -142,7 +142,8 @@ function simpleResponse() {
 	}
 }
 
-function checkCussWords(text) {
+function checkCussWords(request) {
+  var text = request.text;
   var cussCount = (text.toLowerCase().match(/fuck|shit|bitch/g) || []).length;
 
   if (notDoneInLast24Hours(timers.lastCheckedCussWordsTime, request.created_at) && cussCount >= 3) {
@@ -160,9 +161,10 @@ function checkCussWords(text) {
 //   }
 // }
 
-function doesJoeRoganJoinChat(text) {
+function doesJoeRoganJoinChat(request) {
   var regex = /dmt|cbd|shroom/;
-  if (notDoneInLast24Hours(timers.lastJoeRoganChatTime, request.created_at) && regex.test(text.toLowerCase()) {
+  var text = request.text;
+  if (notDoneInLast24Hours(timers.lastJoeRoganChatTime, request.created_at) && regex.test(text.toLowerCase())) {
     timers.lastJoeRoganChatTime = request.created_at;
     return true;
   }
@@ -173,18 +175,20 @@ function isLuisABitch(text) {
   return text.toLowerCase().indexOf("i hate") > -1;
 }
 
-function checkLookAtThisDood(text) {
+function checkLookAtThisDood(request) {
   var regex = /dood/;
-  if (notDoneInLast24Hours(timers.lastDoodVideoTime, request.created_at) && regex.test(text.toLowerCase()) {
+  var text = request.text;
+  if (notDoneInLast24Hours(timers.lastDoodVideoTime, request.created_at) && regex.test(text.toLowerCase())) {
     timers.lastDoodVideoTime = request.created_at;
     return true;
   }
   return false;
 }
 
-function checkSamHarris(text) {
+function checkSamHarris(request) {
   var regex = /sam\sharris/;
-  if (notDoneInLast24Hours(timers.lastBenStillerPicTime, request.created_at) && regex.test(text.toLowerCase()) {
+  var text = request.text;
+  if (notDoneInLast24Hours(timers.lastBenStillerPicTime, request.created_at) && regex.test(text.toLowerCase())) {
     timers.lastBenStillerPicTime = request.created_at;
     return true;
   }
@@ -256,18 +260,20 @@ function checkAskingAboutMeeting(text) {
   return meetingRegex.test(text.toLowerCase());
 }
 
-function checkBlackHole(text) {
+function checkBlackHole(request) {
   var regex = /black\shole/;
-  if (notDoneInLast24Hours(timers.lastBlackHolesTimeB, request.created_at) && regex.test(text.toLowerCase()) {
+  var text = request.text;
+  if (notDoneInLast24Hours(timers.lastBlackHolesTimeB, request.created_at) && regex.test(text.toLowerCase())) {
     timers.lastBlackHolesTimeB = request.created_at;
     return true;
   }
   return false;
 }
 
-function checkBible(text) {
+function checkBible(request) {
   var regex = /bible/;
-  if (notDoneInLast24Hours(timers.lastBibleTime, request.created_at) && regex.test(text.toLowerCase()) {
+  var text = request.text;
+  if (notDoneInLast24Hours(timers.lastBibleTime, request.created_at) && regex.test(text.toLowerCase())) {
     timers.lastBibleTime = request.created_at;
     return true;
   }
@@ -279,18 +285,20 @@ function checkBotMention(text) {
   return regex.test(text.toLowerCase());
 }
 
-function checkPodcast(text) {
+function checkPodcast(request) {
   var regex = /podcast/;
-  if (notDoneInLast24Hours(timers.lastPodcastTime, request.created_at) && regex.test(text.toLowerCase()) {
+  var text = request.text;
+  if (notDoneInLast24Hours(timers.lastPodcastTime, request.created_at) && regex.test(text.toLowerCase())) {
     timers.lastPodcastTime = request.created_at;
     return true;
   }
   return false;
 }
 
-function checkNeedsRide(text, request) {
+function checkNeedsRide(request) {
 	var regex = /a\sride/;
-	if (notDoneInLast24Hours(timers.lastAskedForRideTime, request.created_at) && regex.test(text.toLowerCase()) {
+  var text = request.text;
+	if (notDoneInLast24Hours(timers.lastAskedForRideTime, request.created_at) && regex.test(text.toLowerCase())) {
 		timers.lastAskedForRideTime = request.created_at;
 		return true;
 	}
