@@ -278,7 +278,7 @@ function checkLeftGroup(request) {
 }
 
 function botMentionResponse(text, request) {
-  var sexualWordsRegex = /sex|blowjob|naked|suck\smy\sdick|cock|fuck\sme|girlfriend|boyfriend|gay|lesbian/;
+  var sexualWordsRegex = /dick|sex|blowjob|naked|suck|penis|cock/;
   var insultRegex = /fuck\syou|go\sto\shell|i\shate\syou|you\ssuck|suck\smy\sdick|die|dumb|stupid|annoying|leave|stop|shut\sup|be\squiet|fuck\soff/;
   var delay = 7 * 60;
   if (sexualWordsRegex.test(text.toLowerCase())) {
