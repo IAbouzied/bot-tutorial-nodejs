@@ -9,7 +9,7 @@ function respond() {
   console.log(request);
   if(request.text && botRegex.test(request.text)) {
     this.res.writeHead(200);
-    postMessage();
+    postMessage(request);
     this.res.end();
   } else {
     console.log("don't care");
@@ -18,7 +18,22 @@ function respond() {
   }
 }
 
-function postMessage() {
+function mention(userId, name) {
+  var nameLength = name.length;
+  var attachments = {
+    "type":"mentions",
+    "user_ids":[
+      userId
+    ],
+    "loci":[
+      [0,nameLength]
+    ]
+  }
+
+  return attachments;
+}
+
+function postMessage(request) {
   var botResponse, options, body, botReq;
 
   botResponse = "Suhh dude";
@@ -30,6 +45,7 @@ function postMessage() {
   };
 
   body = {
+    "attachments" : mention(request.user_id, request.name),
     "bot_id" : botID,
     "text" : botResponse
   };
