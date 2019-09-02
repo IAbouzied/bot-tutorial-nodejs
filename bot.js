@@ -20,7 +20,8 @@ var userIds = {
   luisUserId: "24104270",
   tarekUserId: "31433361",
   phillipUserId: "48552024",
-  ejUserId: "26034029"
+  ejUserId: "26034029",
+  alexandersId: "30606247"
 };
 
 var lastMentionResponseTime = 0;
