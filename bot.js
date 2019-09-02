@@ -48,7 +48,8 @@ function mention(userId, name) {
   return attachments;
 }
 
-function postMessage(responseText, request = null) {
+function postMessage(responseText, request) {
+  request = request || null;
   var options, body, botReq;
 
   options = {
