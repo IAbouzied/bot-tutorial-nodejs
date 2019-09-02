@@ -1,6 +1,7 @@
 //jshint esversion: 6
 
 var HTTPS = require('https');
+var axios = require('axios');
 
 var botID = process.env.BOT_ID;
 
@@ -24,7 +25,7 @@ var simpleResponses = [
 	"bruh",
 	"damn",
 	"ok"
-]
+];
 
 var mangoStage = 1;
 var dickStage = 1;
@@ -120,12 +121,14 @@ function myRespond(request) {
         postMessage("Speaking of the Bible, this verse really spoke to me the other day: " + randomBibleVerses[Math.floor(Math.random() * randomBibleVerses.length)], request);
       } else if (checkLeftGroup(request)) {
         postMessage("These bitches ain't loyal");
+      } else if (checkCatMention(request.text)) {
+        getCatFact();
       } else {
       	// 1/75 chance
       	simpleResponse()
       }
     } else if (request.attachments.length > 0 && request.attachments[0].type == "image" && request.user_id == userIds.ejUserId) {
-      postMessage("So cute <3 <3 <3")
+      postMessage("So cute <3 <3 <3");
     }
     else {
       this.res.writeHead(200);
@@ -305,9 +308,22 @@ function checkNeedsRide(request) {
 	return false;
 }
 
-function checkLeftGroup(request) {
-  var regex = /has\sleft\sthe\sgroup/;
-  return (request.sender_type == "system") && regex.test(request.text.toLowerCase()); 
+function checkCatMention(text) {
+  var catRegex = /cat\sfact/;
+  return catRegex.test(text.toLowerCase());
+}
+
+function getCatFact() {
+  axios.get("https://cat-fact.herokuapp.com/facts")
+      .then(res => {
+        return postMessage("Dude, did you know that " + res.data.all[Math.floor(Math.random() * res.data.all.length)].text);
+      })
+      .catch(err => console.log(err));
+}
+
+  function checkLeftGroup(request) {
+    var regex = /has\sleft\sthe\sgroup/;
+    return (request.sender_type == "system") && regex.test(request.text.toLowerCase());
 }
 
 function botMentionResponse(text, request) {
