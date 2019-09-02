@@ -263,8 +263,8 @@ function checkAskingAboutMeeting(text) {
 function checkBlackHole(request) {
   var regex = /black\shole/;
   var text = request.text;
-  if (notDoneInLast24Hours(timers.lastBlackHolesTimeB, request.created_at) && regex.test(text.toLowerCase())) {
-    timers.lastBlackHolesTimeB = request.created_at;
+  if (notDoneInLast24Hours(timers.lastBlackHolesTime, request.created_at) && regex.test(text.toLowerCase())) {
+    timers.lastBlackHolesTime = request.created_at;
     return true;
   }
   return false;
