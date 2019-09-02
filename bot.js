@@ -14,6 +14,18 @@ var urls = {
   podcast: "https://www.youtube.com/playlist?list=PLY6l98_nZ6T2WR7Jhb7q4adgkIVy1bM53"
 };
 
+var simpleResponses = [
+	"k",
+	"cool",
+	"wow",
+	"nice",
+	"dope",
+	"that's lit",
+	"bruh",
+	"damn",
+	"ok"
+]
+
 var mangoStage = 1;
 var dickStage = 1;
 var messagedAlexander = false;
@@ -102,6 +114,9 @@ function myRespond(request) {
         postMessage("Speaking of the Bible, this verse really spoke to me the other day: " + randomBibleVerses[Math.floor(Math.random() * randomBibleVerses.length)], request);
       } else if (checkLeftGroup(request)) {
         postMessage("These bitches ain't loyal");
+      } else {
+      	// 1/75 chance
+      	simpleResponse()
       }
     } else if (request.attachments.length > 0 && request.attachments[0].type == "image" && request.user_id == userIds.ejUserId) {
       postMessage("So cute <3 <3 <3")
@@ -114,6 +129,12 @@ function myRespond(request) {
 }
 
 // OUR CHECKS
+
+function simpleResponse() {
+	if (Math.floor(Math.random() * 25) == 0) {
+		postMessage(simpleResponses[Math.floor(Math.random()*simpleResponses.length)])
+	}
+}
 
 function checkCussWords(text) {
   var cussCount = (text.toLowerCase().match(/fuck|shit|bitch/g) || []).length;
