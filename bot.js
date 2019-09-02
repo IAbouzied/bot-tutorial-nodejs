@@ -211,7 +211,7 @@ function growDick(request) {
       break;
     case 5:
       postMessage("8=========D~~~~")
-      postMessage("Congratulations you made it ejactulate!!!", request)
+      postMessage("Congratulations you made it ejaculate!!!", request)
       dickStage = 1;
       break;
     default:
