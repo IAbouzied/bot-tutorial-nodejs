@@ -29,6 +29,7 @@ var userIds = {
 var lastMentionResponseTime = 0;
 var lastMessagedAlexanderTime = 0;
 var lastAskedForRideTime = 0;
+var lastMentionedCatFactTime = 0;
 
 var mentionResponses = [
   "I have an exam coming up so I can't really talk right now :(",
@@ -96,6 +97,8 @@ function myRespond(request) {
         postMessage("Speaking of podcasts this is one of my personal favorites: " + urls.podcast);
       } else if (checkBible(request.text)) {
         postMessage("Speaking of the Bible, this verse really spoke to me the other day: " + randomBibleVerses[Math.floor(Math.random() * randomBibleVerses.length)]);
+      } else if (checkCatMention(request.text)) {
+        getCatFact();
       }
     } else if (request.attachments.length > 0 && request.attachments[0].type == "image" && request.user_id == userIds.ejUserId) {
       postMessage("So cute <3 <3 <3");
@@ -237,6 +240,39 @@ function checkNeedsRide(text) {
 		return regex.test(text.toLowerCase());
 	}
 	return false;
+}
+
+function checkCatMention(text) {
+  var catRegex = /cat\s|cats\s/;
+  var delay = 60 * 60 * 24;
+  if (lastMentionedCatFactTime + delay < request.created_at) {
+    lastMentionedCatFactTime = request.created_at;
+    return catRegex.test(tex.toLowerCase());
+  }
+}
+
+function getCatFact() {
+  var options = {
+    hostname: 'https://cat-fact.herokuapp.com',
+    path: '/facts',
+    method: 'GET'
+  };
+
+  var catFact = HTTPS.request(options, function(res) {
+      if(res.statusCode == 202) {
+        //neat
+      } else {
+        console.log('rejecting bad status code ' + res.statusCode);
+      }
+  });
+
+  catFact.on('error', function(err) {
+    console.log('error posting message '  + JSON.stringify(err));
+  });
+  catFact.on('timeout', function(err) {
+    console.log('timeout posting message '  + JSON.stringify(err));
+  });
+  catFact.end(JSON.stringify(body));
 }
 
 function botMentionResponse(text, request) {
