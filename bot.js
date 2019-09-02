@@ -192,7 +192,7 @@ function checkBotMention(text) {
 
 function botMentionResponse(text, request) {
   var sexualWordsRegex = /sex|blowjob|naked|suck\smy\sdick|fuck\sme|girlfriend|boyfriend|gay|lesbian/;
-  var insultRegex = /fuck\syou|go\sto\shell|i\shate\syou|you\ssuck|suck\smy\sdick|die|dumb|stupid|annoying|leave|stop/;
+  var insultRegex = /fuck\syou|go\sto\shell|i\shate\syou|you\ssuck|suck\smy\sdick|die|dumb|stupid|annoying|leave|stop|shut\sup|be\squiet/;
   var delay = 7 * 60;
   if (sexualWordsRegex.test(text.toLowerCase())) {
     postMessage("Umm I don't talk to perverts", request);
