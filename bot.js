@@ -47,7 +47,7 @@ function postMessage(request) {
   body = {
     "attachments" : [mention(request.user_id, request.name)],
     "bot_id" : botID,
-    "text" : "@" + request.name + botResponse
+    "text" : "@" + request.name + " " + botResponse
   };
 
   console.log('sending ' + botResponse + ' to ' + botID);
