@@ -20,6 +20,8 @@ function respond() {
       postMessage("https://www.youtube.com/watch?v=ZXWI9oINBpA", request);
     } else if (isLuisABitch(request.text) && request.user_id == "24104270") {
       postMessage("Luis stop being a lil bitch.")
+    } else if (doesJoeRoganJoinChat(request.text)) {
+      postMessage("Joe Rogan has joined the chat.")
     }
 
   } else {
@@ -37,6 +39,14 @@ function checkCussWords(text) {
     return true;
   }
   return false;
+}
+
+function doesJoeRoganJoinChat(text) {
+  var txt = text.toLowerCase()
+  if (txt.indexOf("dmt") > -1 || txt.indexOf("cbd") > -1 || txt.indexOf("shroom") > -1) {
+    return true
+  }
+  return false
 }
 
 function isLuisABitch(text) {
