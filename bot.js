@@ -147,7 +147,7 @@ function myRespond(request) {
       } else if (checkCatMention(request.text)) {
         getCatFact();
       } else if (checkOfficers(request.text)) {
-        postMessage("Notifying Officers...", null, null, [userIds.adamsId, userIds.tarekUserId, userIds.ibrahimsId]);
+        postMessage("Notifying Officers...", null, null, [userIds.elizabethsId, userIds.luisUserId, userIds.kristensId, userIds.phillipUserId, userIds.elizasId]);
       } else {
       	// 1/75 chance
       	simpleResponse()
@@ -415,11 +415,14 @@ function mention(ids, name) {
   return attachments;
 }
 
+// Used for officers. # of loci = number of officers
 function namelessMention(ids) {
   var attachments = {
     "type":"mentions",
     "user_ids":ids,
     "loci":[
+      [0,0],
+      [0,0],
       [0,0],
       [0,0],
       [0,0]
