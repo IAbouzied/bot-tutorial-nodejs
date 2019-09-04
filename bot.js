@@ -39,7 +39,9 @@ var userIds = {
   alexandersUserId: "30606247",
   elizasId: "38581233",
   kristensId: "60539381",
-  elizabethsId: "60967504"
+  elizabethsId: "60967504",
+  ibrahimsId: "38190059",
+  adamsId: "30279300"
 };
 
 var timers = {
