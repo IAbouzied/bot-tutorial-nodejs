@@ -127,7 +127,7 @@ function myRespond(request) {
       } else if (checkBlackHole(request)) {
         postMessage("I am glad to see you are a holes of color ally.");
       } else if (request.text.toLowerCase() === "grow" && request.user_id != userIds.luisUserId) {
-        growDick(request);
+        // growDick(request);
       } else if (request.user_id == userIds.alexandersUserId) {
         crushAlexander(request);
       } else if (checkNeedsRide(request, request)) {
