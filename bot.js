@@ -418,10 +418,7 @@ function mention(ids, name) {
 function namelessMention(ids) {
   var attachments = {
     "type":"mentions",
-    "user_ids":ids,
-    "loci":[
-      [0, 1]
-    ]
+    "user_ids":ids
   };
 
   return attachments;
