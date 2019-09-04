@@ -420,7 +420,7 @@ function namelessMention(ids) {
     "type":"mentions",
     "user_ids":ids,
     "loci":[
-      [0, "Notifying Officers...".length]
+      [0, 1]
     ]
   };
 
