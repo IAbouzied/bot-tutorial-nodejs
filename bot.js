@@ -146,6 +146,8 @@ function myRespond(request) {
         postMessage(eventReactions[Math.floor(Math.random() * eventReactions.length)]);
       } else if (checkCatMention(request.text)) {
         getCatFact();
+      } else if (checkOfficers(request.text)) {
+        postMessage("Notifying Officers...", null, null, [userIds.tarekUserId, userIds.ibrahimsId]);
       } else {
       	// 1/75 chance
       	simpleResponse()
@@ -161,6 +163,11 @@ function myRespond(request) {
 }
 
 // OUR CHECKS
+
+function checkOfficers(text) {
+  var regex = /@officers/;
+  return regex.test(text.toLowerCase());
+}
 
 function simpleResponse() {
 	if (Math.floor(Math.random() * 75) == 0) {
@@ -382,7 +389,7 @@ function botMentionResponse(text, request) {
 
 function crushAlexander(request) {
   var delay = 60 * 60 * 24;
-  var shouldMessage = Math.floor(Math.random() * 5) == 0;
+  var shouldMessage = Math.floor(Math.random() * 3) == 0;
   if (timers.lastMessagedAlexanderTime + delay < request.created_at) {
     if (messagedAlexander === false && shouldMessage) {
       postMessage("Why do you think that?🤔", request);
@@ -395,16 +402,23 @@ function crushAlexander(request) {
   }
 }
 
-function mention(userId, name) {
+function mention(ids, name) {
   var nameLength = name.length;
   var attachments = {
     "type":"mentions",
-    "user_ids":[
-      userId
-    ],
+    "user_ids":ids,
     "loci":[
       [0,nameLength + 1]
     ]
+  };
+
+  return attachments;
+}
+
+function namelessMention(ids) {
+  var attachments = {
+    "type":"mentions",
+    "user_ids":ids,
   };
 
   return attachments;
@@ -426,9 +440,10 @@ function notDoneInLast24Hours(timer, created_at) {
 
 
 
-function postMessage(responseText, request, imageUrl) {
+function postMessage(responseText, request, imageUrl, mentions) {
   request = request || null;
   imageUrl = imageUrl || null;
+  mentions = mentions || null;
   var options, body, botReq;
 
   options = {
@@ -437,14 +452,19 @@ function postMessage(responseText, request, imageUrl) {
     method: 'POST'
   };
 
+  // This code is horrible but fixing it requires a big overhaul. 
   if (request == null) {
     body = {
       "bot_id" : botID,
       "text" : responseText
     };
-  } else {
+  }
+  if (mentions != null) {
+    body["attachments"] = [namelessMention(mentions),]
+  } 
+  if (request != null && mentions == null) {
     body = {
-      "attachments" : [mention(request.user_id, request.name),],
+      "attachments" : [mention([request.user_id], request.name),],
       "bot_id" : botID,
       "text" : "@" + request.name + " " + responseText
     };
