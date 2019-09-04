@@ -462,7 +462,6 @@ function postMessage(responseText, request, imageUrl, mentions) {
   if (mentions != null) {
     body["attachments"] = [namelessMention(mentions),]
   } 
-  console.log(body)
   if (request != null && mentions == null) {
     body = {
       "attachments" : [mention([request.user_id], request.name),],
@@ -477,6 +476,7 @@ function postMessage(responseText, request, imageUrl, mentions) {
 
   console.log('sending ' + responseText + ' to ' + botID);
   console.log(body);
+  console.log("\n")
 
   botReq = HTTPS.request(options, function(res) {
       if(res.statusCode == 202) {
