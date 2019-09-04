@@ -21,3 +21,4 @@ FEATURES:
 - Calls EJ's pictures cute
 - Posts look at this dood meme if someone says dood
 - Respond enthusiastically to new events
+- @officers mentions all the officers
