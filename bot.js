@@ -289,7 +289,7 @@ function growMangoTree(request) {
 }
 
 function checkAskingAboutMeeting(text) {
-  var meetingRegex = /[what\stime|when|where].+meeting/;
+  var meetingRegex = /(what\stime|when|where).+meeting/;
   return meetingRegex.test(text.toLowerCase());
 }
 
