@@ -147,7 +147,7 @@ function myRespond(request) {
       } else if (checkCatMention(request.text)) {
         getCatFact();
       } else if (checkOfficers(request.text)) {
-        postMessage("Notifying Officers...", null, null, [userIds.tarekUserId, userIds.ibrahimsId, userIds.adamsId]);
+        postMessage("Notifying Officers...", null, null, [userIds.ibrahimsId, userIds.tarekUserId, userIds.adamsId]);
       } else {
       	// 1/75 chance
       	simpleResponse()
