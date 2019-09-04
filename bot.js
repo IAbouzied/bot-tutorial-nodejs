@@ -137,7 +137,7 @@ function myRespond(request) {
       } else if (checkBible(request)) {
         postMessage("Speaking of the Bible, this verse really spoke to me the other day: " + randomBibleVerses[Math.floor(Math.random() * randomBibleVerses.length)], request);
       } else if (checkJoinedGroup(request)) {
-        postMessage(greetings[Math.floor(Math.random() * greetings.length)]);
+        // postMessage(greetings[Math.floor(Math.random() * greetings.length)]);
       } else if (checkRejoinedGroup(request)) {
         postMessage("Yay this chat is cool again!");
       } else if (checkLeftGroup(request)) {
