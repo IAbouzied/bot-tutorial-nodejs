@@ -378,7 +378,7 @@ function botMentionResponse(text, request) {
   if (sexualWordsRegex.test(text.toLowerCase())) {
     postMessage("Umm I don't talk to perverts😐", request);
   } else if (insultRegex.test(text.toLowerCase()) && request.avatar_url != null) {
-    postMessage("bruh... look at this dood😂💀", request, request.avatar_url);
+    postMessage("Don't @ me if you don't want me to spam you dumb-dumb", request);
   } else if (request.created_at > timers.lastMentionResponseTime + delay) {
     timers.lastMentionResponseTime = request.created_at;
     postMessage(mentionResponses[Math.floor(Math.random() * mentionResponses.length)], request);
