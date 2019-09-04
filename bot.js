@@ -147,7 +147,7 @@ function myRespond(request) {
       } else if (checkCatMention(request.text)) {
         getCatFact();
       } else if (checkOfficers(request.text)) {
-        postMessage("Notifying Officers...", null, null, [userIds.ibrahimsId, userIds.tarekUserId, userIds.adamsId]);
+        postMessage("Notifying Officers...", null, null, [userIds.adamsId, userIds.tarekUserId, userIds.ibrahimsId]);
       } else {
       	// 1/75 chance
       	simpleResponse()
@@ -462,6 +462,7 @@ function postMessage(responseText, request, imageUrl, mentions) {
   if (mentions != null) {
     body["attachments"] = [namelessMention(mentions),]
   } 
+  console.log(body)
   if (request != null && mentions == null) {
     body = {
       "attachments" : [mention([request.user_id], request.name),],
