@@ -57,6 +57,7 @@ var timers = {
   lastCatTime: 0,
   lastMeetingTime: 0,
   lastRespondToJoinTime: 0,
+  lastRespondToLeaveTime: 0
 };
 
 
@@ -373,14 +374,20 @@ function getCatFact() {
 
 function checkLeftGroup(request) {
     var regex = /has\sleft\sthe\sgroup/;
-    return (request.sender_type == "system") && regex.test(request.text.toLowerCase());
+    var text = request.text;
+
+    if (notDoneInLastHour(timers.lastRespondToLeaveTime, request.created_at) && (request.sender_type == "system") && regex.test(text.toLowerCase())) {
+      timers.lastRespondToLeaveTime = request.created_at;
+      return true;
+    }
+    return false;
 }
 
 function checkJoinedGroup(request) {
   var regex = /(added\s.+to\sthe\sgroup)|(has\sjoined\sthe\sgroup)/;
   var text = request.text;
 
-  if (notDoneInLast24Hours(timers.lastRespondToJoinTime, request.created_at) && (request.sender_type == "system") && regex.test(request.text.toLowerCase())) {
+  if (notDoneInLast24Hours(timers.lastRespondToJoinTime, request.created_at) && (request.sender_type == "system") && regex.test(text.toLowerCase())) {
     timers.lastRespondToJoinTime = request.created_at;
     return true;
   }
