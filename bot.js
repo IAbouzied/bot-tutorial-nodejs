@@ -21,7 +21,6 @@ var simpleResponses = [
 	"wow",
 	"nice",
 	"dope",
-	"that's lit🔥",
 	"bruh",
 	"damn",
 	"ok"
@@ -54,7 +53,10 @@ var timers = {
   lastJoeRoganChatTime: 0,
   lastBlackHolesTime: 0,
   lastPodcastTime: 0,
-  lastBibleTime: 0
+  lastBibleTime: 0,
+  lastCatTime: 0,
+  lastMeetingTime: 0,
+  lastRespondToJoinTime: 0,
 };
 
 
@@ -108,8 +110,9 @@ function myRespond(request) {
       postMessage("Suhh dude");
       this.res.end();
     } else if (request.text) {
-      if (checkBotMention(request.text)) {
-        setTimeout(botMentionResponse, 4 *1000, request.text, request);
+      if (checkBotMention(request)) {
+        //setTimeout(botMentionResponse, 4 *1000, request.text, request);
+        postMessage("Please don't spam the chat.", request)
       } else if (checkCussWords(request)) {
         postMessage("Excuse me!!1! This is a Christian minecraft server 🙏😤. Please keep satan language to a minimum 👿🚫. Thank you.");
       } else if (checkLookAtThisDood(request)) {
@@ -122,7 +125,7 @@ function myRespond(request) {
         postMessage("The face of wisdom", request, urls.benStillerImage);
       } else if (doesJoeRoganJoinChat(request)) {
         postMessage("Joe Rogan has joined the chat.");
-      } else if (checkAskingAboutMeeting(request.text)) {
+      } else if (checkAskingAboutMeeting(request)) {
         postMessage("SSA Meetings are Wednesdays 5:30-6:30pm in PAR 105");
       } else if (checkBlackHole(request)) {
         postMessage("I am glad to see you are a holes of color ally.");
@@ -137,19 +140,19 @@ function myRespond(request) {
       } else if (checkBible(request)) {
         postMessage("Speaking of the Bible, this verse really spoke to me the other day: " + randomBibleVerses[Math.floor(Math.random() * randomBibleVerses.length)], request);
       } else if (checkJoinedGroup(request)) {
-        // postMessage(greetings[Math.floor(Math.random() * greetings.length)]);
+        postMessage(greetings[Math.floor(Math.random() * greetings.length)]);
       } else if (checkRejoinedGroup(request)) {
         postMessage("Yay this chat is cool again!");
       } else if (checkLeftGroup(request)) {
         postMessage("These bitches ain't loyal");
       } else if (checkEventStarting(request)) {
         postMessage(eventReactions[Math.floor(Math.random() * eventReactions.length)]);
-      } else if (checkCatMention(request.text)) {
+      } else if (checkCatMention(request)) {
         getCatFact();
       } else if (checkOfficers(request.text)) {
         postMessage("Notifying Officers...", null, null, [userIds.elizabethsId, userIds.luisUserId, userIds.kristensId, userIds.phillipUserId, userIds.elizasId]);
       } else {
-      	// 1/75 chance
+      	// 1/100 chance
       	simpleResponse()
       }
     } else if (request.attachments.length > 0 && request.attachments[0].type == "image" && request.user_id == userIds.ejUserId) {
@@ -170,7 +173,7 @@ function checkOfficers(text) {
 }
 
 function simpleResponse() {
-	if (Math.floor(Math.random() * 75) == 0) {
+	if (Math.floor(Math.random() * 100) == 0) {
 		postMessage(simpleResponses[Math.floor(Math.random()*simpleResponses.length)])
 	}
 }
@@ -288,9 +291,14 @@ function growMangoTree(request) {
 
 }
 
-function checkAskingAboutMeeting(text) {
+function checkAskingAboutMeeting(request) {
   var meetingRegex = /(what\stime|when|where).+meeting/;
-  return meetingRegex.test(text.toLowerCase());
+  var text = request.text;
+  if (notDoneInLastHour(timers.lastMeetingTime, request.created_at) && meetingRegex.test(text.toLowerCase())) {
+    timers.lastMeetingTime = request.created_at;
+    return true;
+  }
+  return false
 }
 
 function checkBlackHole(request) {
@@ -313,9 +321,15 @@ function checkBible(request) {
   return false;
 }
 
-function checkBotMention(text) {
+function checkBotMention(request) {
   var regex = /@cameron|@cam/;
-  return regex.test(text.toLowerCase());
+  var text = request.text;
+
+  if (notDoneInLast24Hours(timers.lastMentionResponseTime, request.created_at) && regex.test(text.toLowerCase())) {
+    timers.lastMentionResponseTime = request.created_at;
+    return true;
+  }
+  return false;
 }
 
 function checkPodcast(request) {
@@ -338,9 +352,15 @@ function checkNeedsRide(request) {
 	return false;
 }
 
-function checkCatMention(text) {
+function checkCatMention(request) {
   var catRegex = /cat\sfact/;
-  return catRegex.test(text.toLowerCase());
+  var text = request.text;
+
+  if (notDoneInLastHour(timers.lastCatTime, request.created_at) && catRegex.test(text.toLowerCase())) {
+    timers.lastCatTime = request.created_at;
+    return true;
+  }
+  return false;
 }
 
 function getCatFact() {
@@ -357,8 +377,14 @@ function checkLeftGroup(request) {
 }
 
 function checkJoinedGroup(request) {
-    var regex = /(added\s.+to\sthe\sgroup)|(has\sjoined\sthe\sgroup)/;
-    return (request.sender_type == "system") && regex.test(request.text.toLowerCase());
+  var regex = /(added\s.+to\sthe\sgroup)|(has\sjoined\sthe\sgroup)/;
+  var text = request.text;
+
+  if (notDoneInLast24Hours(timers.lastRespondToJoinTime, request.created_at) && (request.sender_type == "system") && regex.test(request.text.toLowerCase())) {
+    timers.lastRespondToJoinTime = request.created_at;
+    return true;
+  }
+  return false;
 }
 
 function checkRejoinedGroup(request) {
@@ -388,8 +414,8 @@ function botMentionResponse(text, request) {
 }
 
 function crushAlexander(request) {
-  var delay = 60 * 60 * 24;
-  var shouldMessage = Math.floor(Math.random() * 3) == 0;
+  var delay = 60 * 60 * 24 * 5;
+  var shouldMessage = Math.floor(Math.random() * 5) == 0;
   if (timers.lastMessagedAlexanderTime + delay < request.created_at) {
     if (messagedAlexander === false && shouldMessage) {
       postMessage("Why do you think that?🤔", request);
@@ -446,8 +472,14 @@ function notDoneInLast24Hours(timer, created_at) {
   return timer + delay < created_at;
 }
 
+function notDoneInLastHour(timer, created_at) {
+  var delay = 60 * 60;
+  return timer + delay < created_at;
+}
 
 
+// Either request or mentions must be null, or both. If they both are not null,
+// that creates problems. This code is horrific cuz we didn't plan it out properly.
 function postMessage(responseText, request, imageUrl, mentions) {
   request = request || null;
   imageUrl = imageUrl || null;
