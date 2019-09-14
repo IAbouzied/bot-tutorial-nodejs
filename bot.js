@@ -126,8 +126,8 @@ function myRespond(request) {
       }
     } else if (request.text) {
       if (checkBotMention(request)) {
-        //setTimeout(botMentionResponse, 4 *1000, request.text, request);
-        postMessage("Please don't spam the chat.", request)
+        ////setTimeout(botMentionResponse, 4 *1000, request.text, request);
+        //postMessage("Please don't spam the chat.", request)
       } else if (checkCussWords(request)) {
         postMessage("Excuse me!!1! This is a Christian minecraft server 🙏😤. Please keep satan language to a minimum 👿🚫. Thank you.");
       } else if (checkLookAtThisDood(request)) {
