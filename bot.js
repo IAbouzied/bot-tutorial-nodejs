@@ -57,7 +57,8 @@ var timers = {
   lastCatTime: 0,
   lastMeetingTime: 0,
   lastRespondToJoinTime: 0,
-  lastRespondToLeaveTime: 0
+  lastRespondToLeaveTime: 0,
+  lastEJCatPicTime: 0
 };
 
 
@@ -119,7 +120,10 @@ function myRespond(request) {
       postMessage("Suhh dude");
       this.res.end();
     } else if (request.attachments.length > 0 && request.attachments[0].type == "image" && request.user_id == userIds.ejUserId) {
-      postMessage(ejCatResponses[Math.floor(Math.random() * ejCatResponses.length)]);
+      if (notDoneInLast24Hours(timers.lastEJCatPicTime, request.created_at)) {
+        timers.lastEJCatPicTime = request.created_at;
+        postMessage(ejCatResponses[Math.floor(Math.random() * ejCatResponses.length)]);
+      }
     } else if (request.text) {
       if (checkBotMention(request)) {
         //setTimeout(botMentionResponse, 4 *1000, request.text, request);
@@ -163,7 +167,7 @@ function myRespond(request) {
       } else if (checkOfficers(request.text)) {
         postMessage("Notifying Officers...", null, null, [userIds.elizabethsId, userIds.luisUserId, userIds.kristensId, userIds.phillipUserId, userIds.elizasId]);
       } else {
-      	// 1/100 chance
+      	// 1/200 chance
       	simpleResponse()
       }
     } 
@@ -182,7 +186,7 @@ function checkOfficers(text) {
 }
 
 function simpleResponse() {
-	if (Math.floor(Math.random() * 200) == 0) {
+	if (Math.floor(Math.random() * 300) == 0) {
 		postMessage(simpleResponses[Math.floor(Math.random()*simpleResponses.length)])
 	}
 }
