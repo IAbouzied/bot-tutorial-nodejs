@@ -69,6 +69,13 @@ var mentionResponses = [
   "Driving rn",
 ];
 
+var ejCatResponses = [
+  "So cute <3 <3 <3",
+  "Awwww",
+  "That's adorable 😍",
+  "omg what a floof ball 😍",
+];
+
 var randomBibleVerses = [
   '“Slaves, submit yourselves to your masters with all respect 💯, not only to the good and gentle 😇 but also to the cruel 👿.” (1 Peter 2:18)',
   '“Wives, submit to your husbands 🏈 as to the Lord 🙌.” (Ephesians 5:22)',
@@ -111,7 +118,7 @@ function myRespond(request) {
       postMessage("Suhh dude");
       this.res.end();
     } else if (request.attachments.length > 0 && request.attachments[0].type == "image" && request.user_id == userIds.ejUserId) {
-      postMessage("So cute <3 <3 <3");
+      postMessage(ejCatResponses[Math.floor(Math.random() * ejCatResponses.length)]);
     } else if (request.text) {
       if (checkBotMention(request)) {
         //setTimeout(botMentionResponse, 4 *1000, request.text, request);
