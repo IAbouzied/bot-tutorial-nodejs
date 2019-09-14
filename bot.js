@@ -74,6 +74,7 @@ var ejCatResponses = [
   "Awwww",
   "That's adorable 😍",
   "omg what a floof ball 😍",
+  "😭😍"
 ];
 
 var randomBibleVerses = [
