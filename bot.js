@@ -182,7 +182,7 @@ function checkOfficers(text) {
 }
 
 function simpleResponse() {
-	if (Math.floor(Math.random() * 100) == 0) {
+	if (Math.floor(Math.random() * 200) == 0) {
 		postMessage(simpleResponses[Math.floor(Math.random()*simpleResponses.length)])
 	}
 }
