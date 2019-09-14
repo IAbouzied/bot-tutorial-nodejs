@@ -110,6 +110,8 @@ function myRespond(request) {
       this.res.writeHead(200);
       postMessage("Suhh dude");
       this.res.end();
+    } else if (request.attachments.length > 0 && request.attachments[0].type == "image" && request.user_id == userIds.ejUserId) {
+      postMessage("So cute <3 <3 <3");
     } else if (request.text) {
       if (checkBotMention(request)) {
         //setTimeout(botMentionResponse, 4 *1000, request.text, request);
@@ -156,9 +158,7 @@ function myRespond(request) {
       	// 1/100 chance
       	simpleResponse()
       }
-    } else if (request.attachments.length > 0 && request.attachments[0].type == "image" && request.user_id == userIds.ejUserId) {
-      postMessage("So cute <3 <3 <3");
-    }
+    } 
     else {
       this.res.writeHead(200);
       this.res.end();
